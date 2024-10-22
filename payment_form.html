@@ -48,6 +48,7 @@
             justify-content: center;
             font-size: 0.8rem; /* Size of the icon */
             transition: background-color 0.3s;
+            margin: 0 10px; /* Margin between circles */
         }
 
         .step-circle.active, .step-circle.checked {
@@ -59,6 +60,7 @@
             display: none;
             opacity: 0;
             transition: opacity 0.5s;
+            text-align: center; /* Centering text */
         }
 
         .step-content.active {
@@ -77,6 +79,19 @@
             width: 100%;
             text-align: center; /* Center text */
             font-size: 1rem; /* Reduced size by 20% */
+        }
+
+        .email-button {
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: #444; /* Button color for email */
+            color: white;
+            font-weight: bold;
+            cursor: default; /* No pointer */
+            width: 100%;
+            margin: 20px 0; /* Space between buttons */
+            text-align: center; /* Center text */
         }
 
         .button {
@@ -115,6 +130,12 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .step-label {
+            font-weight: bold;
+            margin-top: 10px; /* Space between circle and label */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -122,12 +143,15 @@
         <div class="step-indicator">
             <div class="step">
                 <div class="step-circle active checked"></div>
+                <div class="step-label">Selection</div>
             </div>
             <div class="step">
                 <div class="step-circle"></div>
+                <div class="step-label">Data</div>
             </div>
             <div class="step">
                 <div class="step-circle"></div>
+                <div class="step-label">Payment</div>
             </div>
         </div>
 
@@ -135,6 +159,7 @@
             <h2>Top One Club / 1 Month</h2>
             <div class="info-box">Price: $25</div>
             <input type="email" class="email-input" placeholder="Your E-mail" id="email" required>
+            <div class="email-button">Твой имейл</div> <!-- New email button -->
             <button class="button" onclick="proceedToStep2()">Proceed</button>
         </div>
 
