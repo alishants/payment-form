@@ -65,6 +65,13 @@
             outline: none;
         }
 
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: none; /* Изначально скрываем сообщение об ошибке */
+        }
+
         .subscription-option {
             display: inline-block;
             width: 28%; /* Уменьшение ширины для размещения кнопок рядом друг с другом */
@@ -134,20 +141,23 @@
 
         <label for="email">Your Email*</label>
         <input type="email" id="email" class="email-input" placeholder="example@gmail.com" required>
-        <div class="error-message">Please enter a valid email address.</div>
+        <div class="error-message" id="error-message">Please enter a valid email address.</div>
 
         <div class="subscription-options">
             <div class="subscription-option" onclick="selectOption('month', this)">
                 <input type="radio" id="month" name="subscription" value="25" required>
-                1 month - $25
+                <div>1 month</div>
+                <div>$25</div>
             </div>
             <div class="subscription-option" onclick="selectOption('six-months', this)">
                 <input type="radio" id="six-months" name="subscription" value="80" required>
-                6 months - $80
+                <div>6 months</div>
+                <div>$80</div>
             </div>
             <div class="subscription-option" onclick="selectOption('twelve-months', this)">
                 <input type="radio" id="twelve-months" name="subscription" value="120" required>
-                12 months - $120
+                <div>12 months</div>
+                <div>$120</div>
             </div>
         </div>
 
@@ -165,9 +175,19 @@
         function submitForm() {
             const email = document.getElementById('email').value;
             const subscription = document.querySelector('input[name="subscription"]:checked');
+            const errorMessage = document.getElementById('error-message');
 
-            if (!email || !subscription) {
-                alert("Please fill out all fields.");
+            // Проверка на корректность email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.style.display = 'block'; // Показываем сообщение об ошибке
+                return;
+            } else {
+                errorMessage.style.display = 'none'; // Скрываем сообщение об ошибке
+            }
+
+            if (!subscription) {
+                alert("Please select a subscription option.");
                 return;
             }
 
