@@ -7,19 +7,23 @@
 
   <main>
     <h2>Наименование товара</h2>
-    <h3>Top One Club / 1 м.</h3>
+    <h3>База Арсена Маркаряна / 1 мес.</h3>
 
     <div class="payment-method">
-          <label>
+      <label>
+        <input type="radio" name="payment" value="bank_ru">
+        Банк РФ
+      </label>
+      <label>
         <input type="radio" name="payment" value="foreign_bank">
-        Any Currency
+        Иностранный банк
       </label>
     </div>
 
-    <label for="email">Your E-mail</label>
+    <label for="email">Ваш E-mail</label>
     <input type="email" id="email" placeholder="example@gmail.com">
 
-    <p class="price">Стоимость: $25 </p>
+    <p class="price">Стоимость: 1500 RUB</p>
 
     <button>Далее</button>
   </main>
