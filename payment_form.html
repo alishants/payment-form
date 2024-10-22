@@ -38,8 +38,8 @@
         }
 
         .step-circle {
-            width: 21px; /* Size of the circle reduced by 30% */
-            height: 21px; /* Size of the circle reduced by 30% */
+            width: 21px; /* Size of the circle */
+            height: 21px; /* Size of the circle */
             border-radius: 50%;
             border: 2px solid gray;
             background-color: transparent;
@@ -55,16 +55,6 @@
             border-color: #C9F73A;
         }
 
-        .step-line {
-            height: 2px;
-            background-color: white;
-            position: absolute;
-            top: 15px; /* Position line above circles */
-            width: 50%; /* Width of the line connecting circles */
-            left: 25%; /* Center line between circles */
-            z-index: -1;
-        }
-
         .step-content {
             display: none;
             opacity: 0;
@@ -76,8 +66,8 @@
             opacity: 1;
         }
 
-        .email-input, .info-box {
-            margin-bottom: 20px; /* Increased distance */
+        .info-box {
+            margin: 20px 0; /* Increased distance */
             padding: 15px;
             border: none;
             border-radius: 20px;
@@ -85,12 +75,8 @@
             color: white;
             font-weight: bold;
             width: 100%;
-            transition: background-color 0.3s;
-        }
-
-        .email-input:focus {
-            background-color: #555;
-            outline: none;
+            text-align: center; /* Center text */
+            font-size: 1rem; /* Reduced size by 20% */
         }
 
         .button {
@@ -102,17 +88,12 @@
             cursor: pointer;
             width: 100%;
             transition: background-color 0.3s, transform 0.2s;
+            margin-bottom: 20px; /* Space between buttons */
         }
 
         .button:hover {
             background-color: #B5E639;
             transform: scale(1.05);
-        }
-
-        .product-name, .price {
-            font-size: 1.2rem; /* Font size for product details */
-            margin: 0;
-            text-align: center;
         }
 
         .animated-spinner {
@@ -141,31 +122,27 @@
         <div class="step-indicator">
             <div class="step">
                 <div class="step-circle active checked"></div>
-                <div>Selection</div>
             </div>
-            <div class="step-line"></div>
-            <div class="step">
-                <div class="step-circle active checked"></div>
-                <div>Data</div>
-            </div>
-            <div class="step-line"></div>
             <div class="step">
                 <div class="step-circle"></div>
-                <div>Payment</div>
+            </div>
+            <div class="step">
+                <div class="step-circle"></div>
             </div>
         </div>
 
         <div id="step1" class="step-content active">
             <h2>Top One Club / 1 Month</h2>
+            <div class="info-box">Price: $25</div>
             <input type="email" class="email-input" placeholder="Your E-mail" id="email" required>
             <button class="button" onclick="proceedToStep2()">Proceed</button>
         </div>
 
         <div id="step2" class="step-content">
             <h2>Verify Your Data</h2>
+            <div class="info-box">Price: $25</div>
             <div class="info-box">Product Name: Top One Club / 1 Month</div>
             <div class="info-box">Your E-mail: <span id="emailDisplay"></span></div>
-            <div class="info-box">Price: $25</div>
             <button class="button" onclick="confirmPayment()">Proceed to Payment</button>
             <button class="button" style="background-color: #444; color: white;" onclick="goBack()">Go Back</button>
         </div>
