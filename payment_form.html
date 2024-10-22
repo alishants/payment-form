@@ -25,7 +25,7 @@
         }
 
         h2 {
-            font-size: 0.8rem; /* Сделано меньше, чем "Top One Club" */
+            font-size: 1.2rem; /* Сделано больше для заголовка */
             margin-bottom: 5px;
             font-weight: bold;
             text-transform: uppercase;
@@ -38,13 +38,17 @@
             text-transform: uppercase;
         }
 
-        label {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            display: block;
-            text-align: left;
-            color: #C9F73A;
+        .step {
+            display: inline-block;
+            background-color: #C9F73A; /* Цвет кружка */
+            color: #141517;
+            border-radius: 50%;
+            width: 40px; /* Размер кружков */
+            height: 40px; /* Размер кружков */
+            line-height: 40px; /* Центрирование текста */
             font-weight: bold;
+            margin: 0 5px; /* Расстояние между кружками */
+            font-size: 1rem;
         }
 
         .email-input {
@@ -104,41 +108,6 @@
             transform: scale(1.05);
         }
 
-        .circle-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .circle {
-            width: 30px; /* Размер круга */
-            height: 30px; /* Размер круга */
-            border-radius: 50%; /* Делает его кругом */
-            background-color: #C9F73A; /* Цвет круга */
-            margin: 0 5px; /* Отступы между кругами */
-            position: relative; /* Для позиционирования линии */
-        }
-
-        .line {
-            width: 50px; /* Длина линии между кругами */
-            height: 2px; /* Толщина линии */
-            background-color: #C9F73A; /* Цвет линии */
-            position: absolute; /* Позиционирование линии */
-            top: 50%; /* Центрирование по вертикали */
-            left: 100%; /* Линия начинает справа от круга */
-            margin-left: -2px; /* Сдвигаем линию влево */
-        }
-
-        .circle-check {
-            color: #C9F73A; /* Цвет галочки */
-            position: absolute; /* Позиционирование галочки внутри круга */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Центрируем галочку */
-            font-size: 20px; /* Размер галочки */
-        }
-
         @media (max-width: 768px) {
             .subscription-fixed {
                 width: 80%; /* Изменяем ширину для мобильных устройств */
@@ -152,22 +121,18 @@
 </head>
 <body>
     <div class="container">
-        <h2>Product Name</h2> <!-- Текст сделан меньше -->
+        <h2>Product Name</h2>
         <p>Top One Club</p>
+
+        <div>
+            <span class="step">1</span>
+            <span class="step">2</span>
+            <span class="step">3</span>
+        </div>
 
         <label for="email">Your Email*</label>
         <input type="email" id="email" class="email-input" placeholder="example@gmail.com" required>
         <div class="error-message" id="error-message">Please enter a valid email address.</div>
-
-        <div class="circle-container">
-            <div class="circle"></div>
-            <div class="line"></div>
-            <div class="circle"></div>
-            <div class="line"></div>
-            <div class="circle">
-                <i class="fas fa-circle-check circle-check"></i>
-            </div>
-        </div>
 
         <div class="subscription-fixed">
             1 месяц <br> $25
