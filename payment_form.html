@@ -6,44 +6,73 @@
     <title>Payment Form</title>
     <style>
         body {
-            background-color: #000000; /* Черный фон */
-            color: #ffffff; /* Белый текст */
-            font-family: Arial, sans-serif; /* Шрифт */
-            margin: 0; /* Убираем отступы */
-            height: 100vh; /* Высота на весь экран */
-            display: flex; /* Flexbox для центрирования */
-            justify-content: center; /* Центрируем по горизонтали */
-            align-items: center; /* Центрируем по вертикали */
-        }
-        .container {
-            max-width: 400px; /* Ширина контейнера */
-            padding: 20px;
-            background-color: #333333; /* Цвет фона формы */
-            border-radius: 8px; /* Закругленные углы */
-            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2); /* Тень */
-            text-align: center; /* Центрируем текст */
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px; /* Увеличено пространство вокруг */
         }
         button {
-            background-color: #00FF00; /* Ярко электрическая зеленая кнопка */
-            color: black; /* Цвет текста на кнопке */
-            padding: 10px; /* Отступы */
-            border: none; /* Убираем рамку */
-            border-radius: 5px; /* Закругленные углы кнопки */
-            cursor: pointer; /* Курсор при наведении */
-            width: 100%; /* Ширина кнопки 100% */
+            background-color: #00FF00; /* Ярко электрический зеленый */
+            color: black;
+            border: none;
+            padding: 15px 30px; /* Увеличены размеры кнопки */
+            cursor: pointer;
+            font-size: 18px; /* Увеличен размер шрифта */
         }
-        button:hover {
-            background-color: #00cc00; /* Цвет кнопки при наведении */
+        input {
+            padding: 15px; /* Увеличено пространство внутри поля ввода */
+            margin: 15px 0; /* Увеличен отступ между полями */
+            width: 90%; /* Увеличена ширина поля ввода */
+            border: 1px solid white;
+            background-color: black;
+            color: white;
+            font-size: 16px; /* Увеличен размер шрифта */
+        }
+        h1, h2 {
+            margin: 30px 0; /* Увеличены отступы для заголовков */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Enter your e-mail</h2>
-        <form id="paymentForm">
-            <input type="email" id="email" required placeholder="Your e-mail" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 5px;">
-            <button type="submit">Pay</button>
-        </form>
-    </div>
+    <h1>Product Name</h1>
+    <h2>Top One Club / 1 month</h2>
+    
+    <label for="email">Your Email</label>
+    <input type="email" id="email" required>
+    
+    <h2>Price $25</h2> <!-- Вы можете изменить валюту, если это необходимо -->
+    
+    <button onclick="processPayment()">Proceed</button>
+
+    <script>
+        function processPayment() {
+            const email = document.getElementById('email').value;
+            const apiKey = 'YOUR_LAVA_TOP_API_KEY'; 
+            const paymentUrl = 'https://api.lava.top/payment/create'; // Пример URL для создания платежа
+
+            fetch(paymentUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    email: email,
+                    amount: 25, // Укажите нужную сумму
+                    // добавьте другие необходимые параметры в зависимости от API
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.payment_link; // Перенаправляем на страницу оплаты
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>
