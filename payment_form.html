@@ -19,12 +19,14 @@
             border-radius: 10px;
             padding: 20px;
             position: relative;
+            max-width: 400px; /* Максимальная ширина контейнера для компактности */
+            margin: auto; /* Центрирование контейнера */
         }
         .step-indicator {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
             position: relative;
+            margin-bottom: 20px;
         }
         .step {
             position: relative;
@@ -32,16 +34,16 @@
             text-align: center;
         }
         .step-circle {
-            width: 40px; /* Размер круга */
-            height: 40px; /* Размер круга */
+            width: 30px; /* Размер круга */
+            height: 30px; /* Размер круга */
             border-radius: 50%;
             border: 2px solid gray;
             background-color: transparent;
-            transition: background-color 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px; /* Размер иконки */
+            font-size: 18px; /* Размер иконки */
+            transition: background-color 0.3s;
         }
         .step-circle.active {
             background-color: white;
@@ -55,11 +57,10 @@
             height: 2px;
             background-color: white;
             position: absolute;
-            top: 20px; /* Положение линии над кружками */
-            left: 30px; /* Начальное положение линии */
-            right: 30px; /* Конечное положение линии */
+            top: 15px; /* Положение линии над кружками */
+            width: 60%; /* Ширина линии, соединяющей круги */
+            left: 15%; /* Центрирование линии между кружками */
             z-index: -1;
-            transition: width 0.3s; /* Анимация изменения ширины */
         }
         .step-content {
             display: none;
@@ -78,6 +79,7 @@
             background-color: #2c2f33;
             color: white;
             width: 100%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
         .button {
             padding: 10px;
@@ -88,14 +90,17 @@
             cursor: pointer;
             width: 100%;
             font-weight: bold;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
         .button:hover {
             background-color: #A9D81C;
+            transform: scale(1.05); /* Увеличение кнопки при наведении */
         }
         .button:active {
             background-color: #C9F73A;
             color: white;
+            transform: scale(0.95); /* Уменьшение кнопки при нажатии */
         }
         .product-name {
             font-size: 12px; /* Размер названия продукта */
@@ -135,12 +140,12 @@
             </div>
             <div class="step-line"></div>
             <div class="step">
-                <div class="step-circle"><i class="fas fa-circle-check"></i></div>
+                <div class="step-circle"><i class="fa-solid fa-circle"></i></div>
                 <div>Data</div>
             </div>
             <div class="step-line"></div>
             <div class="step">
-                <div class="step-circle"><i class="fas fa-circle-check"></i></div>
+                <div class="step-circle"><i class="fa-solid fa-circle"></i></div>
                 <div>Payment</div>
             </div>
         </div>
@@ -181,7 +186,7 @@
 
             // Update step indicator
             document.querySelector('.step-circle:nth-child(1)').classList.add('checked');
-            document.querySelector('.step-circle:nth-child(2)').classList.add('checked');
+            document.querySelector('.step-circle:nth-child(2)').classList.add('active'); // Установка активности
             animateStepIndicator(1); // Move animation
         }
 
@@ -191,7 +196,7 @@
 
             // Update step indicator
             document.querySelector('.step-circle:nth-child(2)').classList.add('checked');
-            document.querySelector('.step-circle:nth-child(3)').classList.add('checked');
+            document.querySelector('.step-circle:nth-child(3)').classList.add('active'); // Установка активности
             animateStepIndicator(2); // Move animation
             document.querySelector('.animated-spinner').style.display = 'block'; // Show spinner
         }
@@ -207,16 +212,14 @@
         }
 
         function animateStepIndicator(step) {
-            const circles = document.querySelectorAll('.step-circle');
-            const line = document.querySelectorAll('.step-line');
-            const width = 40; // Радиус круга
-            const offset = step * (width + 40); // Ширина линий + пробелы между кружками
-
-            // Animate line movement
-            for (let i = 0; i < line.length; i++) {
-                line[i].style.transition = 'width 0.3s';
-                line[i].style.width = `${offset + (i === 0 ? 0 : 20)}px`;
-            }
+            const lines = document.querySelectorAll('.step-line');
+            lines.forEach((line, index) => {
+                if (index <= step) {
+                    line.style.width = '0'; // Скрыть линию
+                } else {
+                    line.style.width = '60%'; // Показать линию между кружками
+                }
+            });
         }
     </script>
 </body>
