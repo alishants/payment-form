@@ -6,7 +6,7 @@
     <title>Top One Club - Payment Process</title>
     <style>
         body {
-            background-color: #080909; /* Very dark background */
+            background-color: #141517; /* Very dark background */
             color: white;
             font-family: 'Arial', sans-serif;
             text-align: center;
@@ -15,7 +15,7 @@
         }
 
         .container {
-            background-color: #2D2E34; /* Container background color */
+            background-color: #080909; /* Container background color */
             border: 2px solid #C9F73A;
             border-radius: 20px;
             padding: 40px;
@@ -181,7 +181,7 @@
 
         <div id="step3" class="step-content">
             <h2>Waiting for Payment Confirmation...</h2>
-            <div class="animated-spinner">
+            <div class="animated-spinner" id="spinner">
                 <div class="spinner"></div>
             </div>
             <a href="#" style="color: white; text-decoration: underline;">Open payment page</a>
@@ -229,7 +229,6 @@
 
             // Update step indicators
             updateStepIndicator(0);
-            // No need to stop the animation as per your requirements
         }
 
         function updateStepIndicator(step) {
@@ -252,6 +251,9 @@
             // Clear any existing animation
             clearInterval(paymentAnimationInterval);
 
+            // Show the spinner animation
+            document.getElementById('spinner').style.display = 'block';
+
             paymentAnimationInterval = setInterval(() => {
                 // Hide all circles
                 circles.forEach(circle => circle.classList.remove('active'));
@@ -261,7 +263,7 @@
 
                 // Move to the next circle
                 currentIndex = (currentIndex + 1) % circles.length; // Loop through circles
-            }, 450); // Timing based on 133 BPM (450 ms per cycle)
+            }, 450); // Timing based on 133 BPM (450 ms per beat)
         }
     </script>
 </body>
