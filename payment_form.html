@@ -79,6 +79,7 @@
             width: 100%;
             text-align: center; /* Center text */
             font-size: 1rem; /* Reduced size by 20% */
+            max-width: calc(100% - 20px); /* Make it narrower */
         }
 
         .email-input {
@@ -89,7 +90,7 @@
             color: white;
             font-weight: bold;
             width: 100%;
-            margin: 20px 0; /* Space between buttons */
+            margin: 10px 0; /* Space between label and button */
             text-align: center; /* Center text */
         }
 
@@ -135,6 +136,13 @@
             margin-top: 10px; /* Space between circle and label */
             text-align: center;
         }
+
+        .email-label {
+            color: #C9F73A; /* Green color for label */
+            font-size: 0.8rem; /* Smaller size */
+            text-align: left; /* Align left */
+            margin-bottom: 5px; /* Space below label */
+        }
     </style>
 </head>
 <body>
@@ -156,15 +164,16 @@
 
         <div id="step1" class="step-content active">
             <h2>Top One Club / 1 Month</h2>
-            <div class="info-box">Price: $25</div>
-            <input type="email" class="email-input" placeholder="Your E-mail" id="email" required>
+            <div class="info-box">Price - $25</div>
+            <label class="email-label">Your Email</label>
+            <input type="email" class="email-input" placeholder="Enter your email" id="email" required>
             <button class="button" onclick="proceedToStep2()">Proceed</button>
         </div>
 
         <div id="step2" class="step-content">
             <h2>Verify Your Data</h2>
-            <div class="info-box">Price: $25</div>
-            <div class="info-box">Product Name: Top One Club / 1 Month</div>
+            <div class="info-box">Price - $25</div>
+            <div class="info-box">Product Name:<br>Top One Club / 1 Month</div>
             <div class="info-box">Your E-mail: <span id="emailDisplay"></span></div>
             <button class="button" onclick="confirmPayment()">Proceed to Payment</button>
             <button class="button" style="background-color: #444; color: white;" onclick="goBack()">Go Back</button>
@@ -182,7 +191,7 @@
     <script>
         function proceedToStep2() {
             const email = document.getElementById('email').value;
-            if (!email) {
+            if (!validateEmail(email)) {
                 alert("Please enter a valid email address.");
                 return;
             }
@@ -194,6 +203,11 @@
 
             // Update step indicators
             updateStepIndicator(1);
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
         }
 
         function confirmPayment() {
@@ -228,7 +242,14 @@
                     circle.classList.add('active');
                 }
             });
-        }
-    </script>
-</body>
-</html>
+
+            // Animation for step 3 circles
+            if (step === 2) {
+                let currentStep = 0;
+                const interval = setInterval(() => {
+                    if (currentStep < circles.length) {
+                        circles[currentStep].classList.add('active');
+                        currentStep++;
+                    } else {
+                        clearInterval(interval);
+                   
