@@ -40,15 +40,14 @@
 
         .step-indicator {
             display: flex;
-            justify-content: space-between;
-            position: relative;
-            margin-bottom: 20px;
+            justify-content: center; /* Центровка кружков */
+            margin-bottom: 10px; /* Уменьшение расстояния */
         }
 
         .step {
             position: relative;
-            width: 30%;
             text-align: center;
+            margin: 0 5px; /* Уменьшение расстояния между кружками */
         }
 
         .step-circle {
@@ -62,7 +61,7 @@
             justify-content: center;
             font-size: 0.5rem; /* Size of the icon reduced */
             transition: background-color 0.3s;
-            margin: 0 10px; /* Margin between circles */
+            margin: 0; /* Удаление маргина */
         }
 
         .step-circle.active, .step-circle.checked {
@@ -83,7 +82,7 @@
         }
 
         .info-box {
-            margin: 20px 0; /* Increased distance */
+            margin: 10px 0; /* Уменьшение расстояния */
             padding: 15px;
             border: none;
             border-radius: 20px;
@@ -116,7 +115,7 @@
             cursor: pointer;
             width: calc(100% - 20px); /* Увеличение ширины для одинаковости */
             transition: background-color 0.3s, transform 0.2s;
-            margin-bottom: 20px; /* Space between buttons */
+            margin-bottom: 10px; /* Уменьшение расстояния между кнопками */
         }
 
         .button:hover {
@@ -146,7 +145,7 @@
 
         .step-label {
             font-weight: bold;
-            margin-top: 10px; /* Space between circle and label */
+            margin-top: 5px; /* Уменьшение расстояния */
             text-align: center;
             font-size: 0.7rem; /* Уменьшение размера текста */
         }
@@ -156,6 +155,13 @@
             font-size: 0.8rem; /* Smaller size */
             text-align: left; /* Align left */
             margin-bottom: 5px; /* Space below label */
+        }
+
+        .error-message {
+            color: red; /* Color for error message */
+            margin: 10px 0; /* Margin for spacing */
+            font-size: 0.8rem; /* Smaller size */
+            display: none; /* Hidden by default */
         }
     </style>
 </head>
@@ -181,6 +187,7 @@
             <div class="info-box">Price - $25</div>
             <label class="email-label">Your Email</label>
             <input type="email" class="email-input" placeholder="Enter your email" id="email" required>
+            <div class="error-message" id="error-message">Please enter a valid email address.</div> <!-- Уведомление об ошибке -->
             <button class="button" onclick="proceedToStep2()">Proceed</button>
         </div>
 
@@ -207,11 +214,14 @@
 
         function proceedToStep2() {
             const email = document.getElementById('email').value;
+            const errorMessage = document.getElementById('error-message');
+
             if (!validateEmail(email)) {
-                alert("Please enter a valid email address.");
+                errorMessage.style.display = 'block'; // Отображение сообщения об ошибке
                 return;
             }
 
+            errorMessage.style.display = 'none'; // Скрытие сообщения об ошибке
             document.getElementById('emailDisplay').innerText = email;
 
             document.getElementById('step1').classList.remove('active');
