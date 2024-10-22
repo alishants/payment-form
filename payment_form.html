@@ -1,58 +1,49 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма оплаты</title>
+    <title>Payment Form</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #000000; /* Черный фон */
+            color: #ffffff; /* Белый текст */
+            font-family: Arial, sans-serif; /* Шрифт */
+            margin: 0; /* Убираем отступы */
+            height: 100vh; /* Высота на весь экран */
+            display: flex; /* Flexbox для центрирования */
+            justify-content: center; /* Центрируем по горизонтали */
+            align-items: center; /* Центрируем по вертикали */
+        }
+        .container {
+            max-width: 400px; /* Ширина контейнера */
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            max-width: 400px;
+            background-color: #333333; /* Цвет фона формы */
+            border-radius: 8px; /* Закругленные углы */
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2); /* Тень */
+            text-align: center; /* Центрируем текст */
         }
-        input[type="email"], input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        button {
+            background-color: #00FF00; /* Ярко электрическая зеленая кнопка */
+            color: black; /* Цвет текста на кнопке */
+            padding: 10px; /* Отступы */
+            border: none; /* Убираем рамку */
+            border-radius: 5px; /* Закругленные углы кнопки */
+            cursor: pointer; /* Курсор при наведении */
+            width: 100%; /* Ширина кнопки 100% */
         }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
+        button:hover {
+            background-color: #00cc00; /* Цвет кнопки при наведении */
         }
     </style>
 </head>
 <body>
-
-    <h2>Форма оплаты</h2>
-    <form id="paymentForm">
-        <label for="email">Введите ваш email:</label>
-        <input type="email" id="email" name="email" required>
-        <input type="submit" value="Оплатить">
-    </form>
-
-    <script>
-        document.getElementById('paymentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-
-            // Здесь добавьте код для отправки email на сервер и получения ссылки на оплату
-            // Например, используйте fetch() для AJAX-запроса
-
-            console.log('Email:', email);
-            // После успешного получения ссылки, перенаправьте пользователя на страницу оплаты
-            // window.location.href = 'https://ваша_ссылка_на_оплату';
-        });
-    </script>
-
+    <div class="container">
+        <h2>Enter your e-mail</h2>
+        <form id="paymentForm">
+            <input type="email" id="email" required placeholder="Your e-mail" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 5px;">
+            <button type="submit">Pay</button>
+        </form>
+    </div>
 </body>
 </html>
