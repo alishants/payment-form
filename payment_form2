@@ -1,0 +1,26 @@
+<div class="container">
+  <nav>
+    <button class="active">Выбор</button>
+    <button>Данные</button>
+    <button>Оплата</button>
+  </nav>
+
+  <main>
+    <h2>Наименование товара</h2>
+    <h3>Top One Club / 1 м.</h3>
+
+    <div class="payment-method">
+          <label>
+        <input type="radio" name="payment" value="foreign_bank">
+        Any Currency
+      </label>
+    </div>
+
+    <label for="email">Your E-mail</label>
+    <input type="email" id="email" placeholder="example@gmail.com">
+
+    <p class="price">Стоимость: $25 </p>
+
+    <button>Далее</button>
+  </main>
+</div>
