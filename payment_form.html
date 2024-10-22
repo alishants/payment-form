@@ -34,7 +34,7 @@
 
         .step-indicator {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around; /* Центрируем кружки */
             margin-bottom: 20px;
         }
 
@@ -61,11 +61,8 @@
 
         .step-text {
             text-align: center;
+            position: relative;
             margin-top: 10px;
-            position: absolute;
-            bottom: -30px; /* Сдвиг текста вниз */
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         .info-box {
@@ -91,6 +88,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%; /* Равная ширина для кнопок */
+            margin: 5px 0;
         }
 
         .spinner {
