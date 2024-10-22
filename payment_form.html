@@ -251,19 +251,25 @@
             const circles = document.querySelectorAll('.step-circle');
             let currentIndex = 0;
 
+            // Clear any existing animation
+            stopPaymentAnimation();
+
             paymentAnimationInterval = setInterval(() => {
-                circles[currentIndex].classList.toggle('active'); // Toggle visibility
-                currentIndex = (currentIndex + 1) % circles.length; // Move to the next circle
-                circles[currentIndex].classList.toggle('active'); // Toggle visibility
+                // Hide all circles
+                circles.forEach(circle => circle.classList.remove('active'));
+
+                // Show the current circle
+                circles[currentIndex].classList.add('active');
+
+                // Move to the next circle
+                currentIndex = (currentIndex + 1) % circles.length; // Loop through circles
             }, 450); // Timing based on 133 BPM (450 ms per cycle)
         }
 
         function stopPaymentAnimation() {
             clearInterval(paymentAnimationInterval);
             const circles = document.querySelectorAll('.step-circle');
-            circles.forEach(circle => {
-                circle.classList.remove('active'); // Ensure all circles are reset
-            });
+            circles.forEach(circle => circle.classList.remove('active'));
         }
     </script>
 </body>
