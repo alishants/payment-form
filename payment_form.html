@@ -15,13 +15,27 @@
         }
 
         .container {
-            background-color: #080909; /* Container background color */
+            background-color: #2D2E34; /* Container background color */
             border: 2px solid #C9F73A;
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
             max-width: 450px;
             margin: auto;
+            animation: pulse 2s infinite; /* Пульсирующая анимация */
+            width: 100%; /* Одинаковая ширина для всех страниц */
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            }
         }
 
         .step-indicator {
@@ -76,10 +90,9 @@
             background-color: #444;
             color: white;
             font-weight: bold;
-            width: 100%;
+            width: calc(100% - 40px); /* Уменьшение ширины */
             text-align: center; /* Center text */
-            font-size: 1rem; /* Reduced size by 20% */
-            max-width: calc(100% - 20px); /* Make it narrower */
+            font-size: 0.8rem; /* Уменьшение размера текста */
         }
 
         .email-input {
@@ -89,7 +102,7 @@
             background-color: #444; /* Input field color */
             color: white;
             font-weight: bold;
-            width: 100%;
+            width: 70%; /* Уменьшение на 30% */
             margin: 10px 0; /* Space between label and button */
             text-align: center; /* Center text */
         }
@@ -101,7 +114,7 @@
             background-color: #C9F73A; /* Button color */
             font-weight: bold;
             cursor: pointer;
-            width: 100%;
+            width: calc(100% - 20px); /* Увеличение ширины для одинаковости */
             transition: background-color 0.3s, transform 0.2s;
             margin-bottom: 20px; /* Space between buttons */
         }
@@ -135,6 +148,7 @@
             font-weight: bold;
             margin-top: 10px; /* Space between circle and label */
             text-align: center;
+            font-size: 0.7rem; /* Уменьшение размера текста */
         }
 
         .email-label {
@@ -212,17 +226,6 @@
             return re.test(String(email).toLowerCase());
         }
 
-        function confirmPayment() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.add('active');
-
-            // Update step indicator for Payment step
-            updateStepIndicator(2);
-
-            // Start the payment animation loop
-            startPaymentAnimation();
-        }
-
         function goBack() {
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step1').classList.add('active');
@@ -231,39 +234,26 @@
             updateStepIndicator(0);
         }
 
-        function updateStepIndicator(step) {
-            const circles = document.querySelectorAll('.step-circle');
-            circles.forEach((circle, index) => {
-                circle.classList.remove('active', 'checked');
-                if (index < step + 1) {
-                    circle.classList.add('checked');
-                }
-                if (index === step) {
-                    circle.classList.add('active');
-                }
-            });
+        function confirmPayment() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+
+            // Start the payment animation
+            paymentAnimationInterval = setInterval(() => {
+                document.querySelector('.spinner').style.display = 'block';
+            }, 1000);
+            updateStepIndicator(2);
         }
 
-        function startPaymentAnimation() {
+        function updateStepIndicator(step) {
             const circles = document.querySelectorAll('.step-circle');
-            let currentIndex = 0;
-
-            // Clear any existing animation
-            clearInterval(paymentAnimationInterval);
-
-            // Show the spinner animation
-            document.getElementById('spinner').style.display = 'block';
-
-            paymentAnimationInterval = setInterval(() => {
-                // Hide all circles
-                circles.forEach(circle => circle.classList.remove('active'));
-
-                // Show the current circle
-                circles[currentIndex].classList.add('active');
-
-                // Move to the next circle
-                currentIndex = (currentIndex + 1) % circles.length; // Loop through circles
-            }, 450); // Timing based on 133 BPM (450 ms per beat)
+            for (let i = 0; i < circles.length; i++) {
+                circles[i].classList.remove('active', 'checked');
+            }
+            for (let i = 0; i <= step; i++) {
+                circles[i].classList.add('checked');
+            }
+            circles[step].classList.add('active');
         }
     </script>
 </body>
