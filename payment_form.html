@@ -189,6 +189,8 @@
     </div>
 
     <script>
+        let paymentAnimationInterval;
+
         function proceedToStep2() {
             const email = document.getElementById('email').value;
             if (!validateEmail(email)) {
@@ -217,10 +219,8 @@
             // Update step indicator for Payment step
             updateStepIndicator(2);
 
-            // Simulate payment processing
-            setTimeout(() => {
-                alert("Payment confirmed!");
-            }, 3000);
+            // Start the payment animation loop
+            startPaymentAnimation();
         }
 
         function goBack() {
@@ -229,6 +229,9 @@
 
             // Update step indicators
             updateStepIndicator(0);
+
+            // Stop the payment animation if going back
+            stopPaymentAnimation();
         }
 
         function updateStepIndicator(step) {
@@ -242,19 +245,25 @@
                     circle.classList.add('active');
                 }
             });
+        }
 
-            // Animation for step 3 circles
-            if (step === 2) {
-                let currentStep = 0;
-                const interval = setInterval(() => {
-                    if (currentStep < circles.length) {
-                        circles[currentStep].classList.add('active');
-                        currentStep++;
-                    } else {
-                        clearInterval(interval);
-                    }
-                }, 450); // Tempo of 133 BPM
-            }
+        function startPaymentAnimation() {
+            const circles = document.querySelectorAll('.step-circle');
+            let currentIndex = 0;
+
+            paymentAnimationInterval = setInterval(() => {
+                circles[currentIndex].classList.toggle('active'); // Toggle visibility
+                currentIndex = (currentIndex + 1) % circles.length; // Move to the next circle
+                circles[currentIndex].classList.toggle('active'); // Toggle visibility
+            }, 450); // Timing based on 133 BPM (450 ms per cycle)
+        }
+
+        function stopPaymentAnimation() {
+            clearInterval(paymentAnimationInterval);
+            const circles = document.querySelectorAll('.step-circle');
+            circles.forEach(circle => {
+                circle.classList.remove('active'); // Ensure all circles are reset
+            });
         }
     </script>
 </body>
