@@ -15,12 +15,12 @@
         }
 
         .container {
-            background-color: #080909; /* Container background color */
+            background-color: #2D2E34; /* Container background color */
             border: 2px solid #C9F73A;
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            max-width: 450px;
+            max-width: 380px; /* Уменьшенная ширина контейнера */
             margin: auto;
             animation: pulse 2s infinite; /* Пульсирующая анимация */
             width: 100%; /* Одинаковая ширина для всех страниц */
@@ -47,19 +47,19 @@
         .step {
             position: relative;
             text-align: center;
-            margin: 0 5px; /* Уменьшение расстояния между кружками */
+            margin: 0 10px; /* Уменьшение расстояния между кружками */
         }
 
         .step-circle {
-            width: 12.6px; /* Size of the circle reduced by 40% */
-            height: 12.6px; /* Size of the circle reduced by 40% */
+            width: 12px; /* Уменьшенный размер круга */
+            height: 12px; /* Уменьшенный размер круга */
             border-radius: 50%;
             border: 2px solid gray;
             background-color: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.5rem; /* Size of the icon reduced */
+            font-size: 0.5rem; /* Уменьшенный размер иконки */
             transition: background-color 0.3s;
             margin: 0; /* Удаление маргина */
         }
@@ -73,7 +73,7 @@
             display: none;
             opacity: 0;
             transition: opacity 0.5s;
-            text-align: center; /* Centering text */
+            text-align: center; /* Центровка текста */
         }
 
         .step-content.active {
@@ -90,7 +90,7 @@
             color: white;
             font-weight: bold;
             width: calc(100% - 40px); /* Уменьшение ширины */
-            text-align: center; /* Center text */
+            text-align: center; /* Центровка текста */
             font-size: 0.8rem; /* Уменьшение размера текста */
         }
 
@@ -98,19 +98,19 @@
             padding: 15px;
             border: none;
             border-radius: 20px;
-            background-color: #444; /* Input field color */
+            background-color: #444; /* Цвет поля ввода */
             color: white;
             font-weight: bold;
             width: 70%; /* Уменьшение на 30% */
-            margin: 10px 0; /* Space between label and button */
-            text-align: center; /* Center text */
+            margin: 10px 0; /* Пробел между меткой и кнопкой */
+            text-align: center; /* Центровка текста */
         }
 
         .button {
             padding: 15px;
             border: none;
             border-radius: 20px;
-            background-color: #C9F73A; /* Button color */
+            background-color: #C9F73A; /* Цвет кнопки */
             font-weight: bold;
             cursor: pointer;
             width: calc(100% - 20px); /* Увеличение ширины для одинаковости */
@@ -151,17 +151,30 @@
         }
 
         .email-label {
-            color: #C9F73A; /* Green color for label */
-            font-size: 0.8rem; /* Smaller size */
-            text-align: left; /* Align left */
-            margin-bottom: 5px; /* Space below label */
+            color: #C9F73A; /* Зеленый цвет для метки */
+            font-size: 0.8rem; /* Уменьшенный размер */
+            text-align: left; /* Выравнивание влево */
+            margin-bottom: 5px; /* Пробел под меткой */
         }
 
         .error-message {
-            color: red; /* Color for error message */
-            margin: 10px 0; /* Margin for spacing */
-            font-size: 0.8rem; /* Smaller size */
-            display: none; /* Hidden by default */
+            color: red; /* Цвет сообщения об ошибке */
+            margin: 10px 0; /* Отступ для пробелов */
+            font-size: 0.8rem; /* Уменьшенный размер */
+            display: none; /* Скрыто по умолчанию */
+        }
+
+        .payment-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Центровка содержимого */
+            margin-top: 20px; /* Отступ сверху */
+            animation: fadeIn 1s; /* Анимация появления для контейнера */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -184,7 +197,7 @@
 
         <div id="step1" class="step-content active">
             <h2>Top One Club / 1 Month</h2>
-            <div class="info-box">Price - $25</div>
+            <div>Price - $25</div> <!-- Убрали окно, оставили текст -->
             <label class="email-label">Your Email</label>
             <input type="email" class="email-input" placeholder="Enter your email" id="email" required>
             <div class="error-message" id="error-message">Please enter a valid email address.</div> <!-- Уведомление об ошибке -->
@@ -205,24 +218,28 @@
             <div class="animated-spinner" id="spinner">
                 <div class="spinner"></div>
             </div>
-            <a href="#" style="color: white; text-decoration: underline;">Open payment page</a>
+            <div class="payment-container">
+                <div class="info-box">Price - $25</div>
+                <div class="info-box">Payment successful! Thank you for your order!</div>
+            </div>
         </div>
     </div>
 
     <script>
-        let paymentAnimationInterval;
-
         function proceedToStep2() {
-            const email = document.getElementById('email').value;
+            const emailInput = document.getElementById('email');
+            const email = emailInput.value;
             const errorMessage = document.getElementById('error-message');
 
             if (!validateEmail(email)) {
-                errorMessage.style.display = 'block'; // Отображение сообщения об ошибке
+                errorMessage.style.display = 'block'; // Показать сообщение об ошибке
                 return;
+            } else {
+                errorMessage.style.display = 'none'; // Скрыть сообщение об ошибке
             }
 
-            errorMessage.style.display = 'none'; // Скрытие сообщения об ошибке
-            document.getElementById('emailDisplay').innerText = email;
+            // Сохранение email для отображения на втором шаге
+            document.getElementById('emailDisplay').textContent = email;
 
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
