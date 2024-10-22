@@ -3,223 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top One Club - Payment Process</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Payment Form</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #1F2027;
+            background-color: #141517; /* Очень темный общий фон */
             color: white;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            border: 2px solid #C9F73A;
-            border-radius: 10px;
-            padding: 20px;
-            position: relative;
-            max-width: 400px; /* Максимальная ширина контейнера для компактности */
-            margin: auto; /* Центрирование контейнера */
-        }
-        .step-indicator {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .step {
-            position: relative;
-            width: 30%;
+            font-family: 'Arial', sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 40px;
         }
-        .step-circle {
-            width: 30px; /* Размер круга */
-            height: 30px; /* Размер круга */
-            border-radius: 50%;
-            border: 2px solid gray;
-            background-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px; /* Размер иконки */
+
+        .container {
+            background-color: #2D2E34; /* Фон контейнера - серый */
+            border: 2px solid #C9F73A;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            max-width: 450px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 0.8rem; /* Сделано меньше, чем "Top One Club" */
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
+            color: #C9F73A;
+            font-weight: bold;
+        }
+
+        .email-input {
+            width: 65%;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: #444;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1rem;
             transition: background-color 0.3s;
         }
-        .step-circle.active {
-            background-color: white;
-            border-color: white;
+
+        .email-input:focus {
+            background-color: #555;
+            outline: none;
         }
-        .step-circle.checked {
-            background-color: white;
-            border-color: white;
+
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: none; /* Скрываем сообщение об ошибке по умолчанию */
         }
-        .step-line {
-            height: 2px;
-            background-color: white;
-            position: absolute;
-            top: 15px; /* Положение линии над кружками */
-            width: 60%; /* Ширина линии, соединяющей круги */
-            left: 15%; /* Центрирование линии между кружками */
-            z-index: -1;
-        }
-        .step-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        .step-content.active {
-            display: block;
-            opacity: 1;
-        }
-        .input-field {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #2c2f33;
+
+        .subscription-fixed {
+            width: 50%; /* Вдвое меньше ширины поля почты */
+            padding: 10px; /* Меньше высота */
+            border-radius: 20px;
+            background-color: #444; /* Контрастный серый цвет */
             color: white;
-            width: 100%;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        }
-        .button {
-            padding: 10px;
-            background-color: #C9F73A;
-            border: none;
-            border-radius: 5px;
-            color: black;
-            cursor: pointer;
-            width: 100%;
             font-weight: bold;
-            transition: background-color 0.3s, color 0.3s, transform 0.2s;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        }
-        .button:hover {
-            background-color: #A9D81C;
-            transform: scale(1.05); /* Увеличение кнопки при наведении */
-        }
-        .button:active {
-            background-color: #C9F73A;
-            color: white;
-            transform: scale(0.95); /* Уменьшение кнопки при нажатии */
-        }
-        .product-name {
-            font-size: 12px; /* Размер названия продукта */
-            margin: 0;
+            font-size: 0.9rem;
             text-align: center;
+            margin: 20px auto; /* Центрирование блока */
+            line-height: 1.4;
         }
-        .price {
-            font-size: 16px; /* Размер цены */
-            margin: 0;
-            text-align: center;
-        }
-        .animated-spinner {
+
+        .subscribe-button {
+            width: 65%;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: #C9F73A; /* Цвет кнопки "Proceed" */
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.2rem;
             margin-top: 20px;
-            display: none;
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
         }
-        .spinner {
-            animation: spin 2s linear infinite;
-            width: 50px;
-            height: 50px;
-            border: 5px solid transparent;
-            border-top: 5px solid white;
-            border-radius: 50%;
-            margin: 0 auto;
+
+        .subscribe-button:hover {
+            background-color: #B5E639;
+            transform: scale(1.05);
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .circle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .circle {
+            width: 30px; /* Размер круга */
+            height: 30px; /* Размер круга */
+            border-radius: 50%; /* Делает его кругом */
+            background-color: #C9F73A; /* Цвет круга */
+            margin: 0 5px; /* Отступы между кругами */
+            position: relative; /* Для позиционирования линии */
+        }
+
+        .line {
+            width: 50px; /* Длина линии между кругами */
+            height: 2px; /* Толщина линии */
+            background-color: #C9F73A; /* Цвет линии */
+            position: absolute; /* Позиционирование линии */
+            top: 50%; /* Центрирование по вертикали */
+            left: 100%; /* Линия начинает справа от круга */
+            margin-left: -2px; /* Сдвигаем линию влево */
+        }
+
+        .circle-check {
+            color: #C9F73A; /* Цвет галочки */
+            position: absolute; /* Позиционирование галочки внутри круга */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Центрируем галочку */
+            font-size: 20px; /* Размер галочки */
+        }
+
+        @media (max-width: 768px) {
+            .subscription-fixed {
+                width: 80%; /* Изменяем ширину для мобильных устройств */
+            }
+
+            .subscribe-button {
+                width: 100%; /* Кнопка "Proceed" на всю ширину на мобильных устройствах */
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="step-indicator">
-            <div class="step">
-                <div class="step-circle active checked"><i class="fas fa-circle-check"></i></div>
-                <div>Selection</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="step">
-                <div class="step-circle"><i class="fa-solid fa-circle"></i></div>
-                <div>Data</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="step">
-                <div class="step-circle"><i class="fa-solid fa-circle"></i></div>
-                <div>Payment</div>
+        <h2>Product Name</h2> <!-- Текст сделан меньше -->
+        <p>Top One Club</p>
+
+        <label for="email">Your Email*</label>
+        <input type="email" id="email" class="email-input" placeholder="example@gmail.com" required>
+        <div class="error-message" id="error-message">Please enter a valid email address.</div>
+
+        <div class="circle-container">
+            <div class="circle"></div>
+            <div class="line"></div>
+            <div class="circle"></div>
+            <div class="line"></div>
+            <div class="circle">
+                <i class="fas fa-circle-check circle-check"></i>
             </div>
         </div>
 
-        <div id="step1" class="step-content active">
-            <h1>Top One Club / 1 Month</h1>
-            <input type="text" class="input-field" placeholder="Your E-mail" id="email">
-            <p class="product-name">Product Name</p>
-            <p class="price">Price: $15.6</p>
-            <button class="button" onclick="proceedToStep2()">Proceed to Payment</button>
+        <div class="subscription-fixed">
+            1 месяц <br> $25
         </div>
 
-        <div id="step2" class="step-content">
-            <h1>Verify your data</h1>
-            <p class="product-name">Product Name: Top One Club / 1 Month</p>
-            <p class="price">Your E-mail: <span id="emailDisplay"></span></p>
-            <p class="price">Price: $15.6</p>
-            <button class="button" onclick="confirmPayment()">Proceed to Payment</button>
-            <button class="button" onclick="goBack()">Go Back</button>
-        </div>
-
-        <div id="step3" class="step-content">
-            <h1>Waiting for payment confirmation...</h1>
-            <div class="animated-spinner">
-                <div class="spinner"></div>
-            </div>
-            <a href="#" style="color: white; text-decoration: underline;">Open payment page</a>
-        </div>
+        <button class="subscribe-button" onclick="submitForm()">Proceed</button>
     </div>
 
     <script>
-        function proceedToStep2() {
+        function submitForm() {
             const email = document.getElementById('email').value;
-            document.getElementById('emailDisplay').innerText = email;
+            const errorMessage = document.getElementById('error-message');
 
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
+            // Проверка на корректность email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.style.display = 'block'; // Показываем сообщение об ошибке
+                return;
+            } else {
+                errorMessage.style.display = 'none'; // Скрываем сообщение об ошибке
+            }
 
-            // Update step indicator
-            document.querySelector('.step-circle:nth-child(1)').classList.add('checked');
-            document.querySelector('.step-circle:nth-child(2)').classList.add('active'); // Установка активности
-            animateStepIndicator(1); // Move animation
-        }
-
-        function confirmPayment() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.add('active');
-
-            // Update step indicator
-            document.querySelector('.step-circle:nth-child(2)').classList.add('checked');
-            document.querySelector('.step-circle:nth-child(3)').classList.add('active'); // Установка активности
-            animateStepIndicator(2); // Move animation
-            document.querySelector('.animated-spinner').style.display = 'block'; // Show spinner
-        }
-
-        function goBack() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step1').classList.add('active');
-
-            // Update step indicator
-            document.querySelector('.step-circle:nth-child(1)').classList.add('checked');
-            document.querySelector('.step-circle:nth-child(2)').classList.remove('checked');
-            animateStepIndicator(0); // Move animation
-        }
-
-        function animateStepIndicator(step) {
-            const lines = document.querySelectorAll('.step-line');
-            lines.forEach((line, index) => {
-                if (index <= step) {
-                    line.style.width = '0'; // Скрыть линию
-                } else {
-                    line.style.width = '60%'; // Показать линию между кружками
-                }
-            });
+            alert("Email: " + email + "\nSubscription: 1 месяц - $25");
         }
     </script>
 </body>
