@@ -10,26 +10,31 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
+            padding: 40px; /* Увеличено пространство вокруг */
         }
         button {
             background-color: #00FF00; /* Ярко электрический зеленый */
             color: black;
             border: none;
-            padding: 10px 20px;
+            padding: 15px 30px; /* Увеличены размеры кнопки */
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px; /* Увеличен размер шрифта */
         }
         input {
-            padding: 10px;
-            margin: 10px 0;
-            width: 80%;
+            padding: 10px; /* Увеличено пространство внутри поля ввода */
+            margin: 15px 0; /* Увеличен отступ между полями */
+            width: 80%; /* Уменьшена ширина поля ввода */
             border: 1px solid white;
             background-color: black;
             color: white;
+            font-size: 16px; /* Увеличен размер шрифта */
         }
-        h1, h2 {
-            margin: 20px 0;
+        h1 {
+            margin: 10px 0; /* Уменьшены отступы для заголовка */
+            font-size: 24px; /* Уменьшен размер шрифта */
+        }
+        h2 {
+            margin: 20px 0; /* Увеличены отступы для заголовка */
         }
     </style>
 </head>
@@ -37,8 +42,8 @@
     <h1>Product Name</h1>
     <h2>Top One Club / 1 month</h2>
     
-    <label for="email">Your Email</label>
-    <input type="email" id="email" required>
+    <label for="email">Your Email (required)</label>
+    <input type="email" id="email" required placeholder="Enter your email">
     
     <h2>Price $25</h2> <!-- Вы можете изменить валюту, если это необходимо -->
     
@@ -49,6 +54,11 @@
             const email = document.getElementById('email').value;
             const apiKey = 'YOUR_LAVA_TOP_API_KEY'; 
             const paymentUrl = 'https://api.lava.top/payment/create'; // Пример URL для создания платежа
+
+            if (!email) {
+                alert('Email is required.');
+                return; // Остановить выполнение, если поле пустое
+            }
 
             fetch(paymentUrl, {
                 method: 'POST',
