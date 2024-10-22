@@ -38,15 +38,15 @@
         }
 
         .step-circle {
-            width: 30px; /* Smaller circle size */
-            height: 30px; /* Smaller circle size */
+            width: 30px; /* Size of the circle */
+            height: 30px; /* Size of the circle */
             border-radius: 50%;
             border: 2px solid gray;
             background-color: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem; /* Font size for icon */
+            font-size: 0.8rem; /* Size of the icon */
             transition: background-color 0.3s;
         }
 
@@ -68,7 +68,7 @@
         .step-content {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s; /* Transition for fade effect */
+            transition: opacity 0.5s;
         }
 
         .step-content.active {
@@ -76,8 +76,8 @@
             opacity: 1;
         }
 
-        .email-input {
-            margin-bottom: 20px;
+        .email-input, .info-box {
+            margin-bottom: 40px; /* Increased distance */
             padding: 15px;
             border: none;
             border-radius: 20px;
@@ -102,7 +102,6 @@
             cursor: pointer;
             width: 100%;
             transition: background-color 0.3s, transform 0.2s;
-            margin-bottom: 10px; /* Space between buttons */
         }
 
         .button:hover {
@@ -110,7 +109,7 @@
             transform: scale(1.05);
         }
 
-        .price {
+        .product-name, .price {
             font-size: 1.2rem; /* Font size for product details */
             margin: 0;
             text-align: center;
@@ -135,44 +134,23 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* New styles for hourglass animation */
-        .hourglass {
-            width: 50px;
-            height: 50px;
-            position: relative;
-            margin: 20px auto;
-        }
-
-        .sand {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: transparent;
-            animation: pour 1.5s infinite linear;
-        }
-
-        @keyframes pour {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="step-indicator">
             <div class="step">
-                <div class="step-circle active checked"><i class="fas fa-circle-check"></i></div>
+                <div class="step-circle active checked"></div>
                 <div>Selection</div>
             </div>
             <div class="step-line"></div>
             <div class="step">
-                <div class="step-circle"><i class="fa-solid fa-circle"></i></div>
+                <div class="step-circle"></div>
                 <div>Data</div>
             </div>
             <div class="step-line"></div>
             <div class="step">
-                <div class="step-circle"><i class="fa-solid fa-circle"></i></div>
+                <div class="step-circle"></div>
                 <div>Payment</div>
             </div>
         </div>
@@ -186,18 +164,16 @@
 
         <div id="step2" class="step-content">
             <h2>Verify Your Data</h2>
-            <p class="price">Your E-mail: <span id="emailDisplay"></span></p>
-            <p class="price">Price: $25</p>
+            <p class="info-box">Product Name: Top One Club / 1 Month</p>
+            <p class="info-box">Your E-mail: <span id="emailDisplay"></span></p>
+            <p class="info-box">Price: $25</p>
             <button class="button" onclick="confirmPayment()">Proceed to Payment</button>
-            <button class="button" onclick="goBack()">Go Back</button>
+            <button class="button" style="background-color: #444; color: white;" onclick="goBack()">Go Back</button>
         </div>
 
         <div id="step3" class="step-content">
             <h2>Waiting for Payment Confirmation...</h2>
             <div class="animated-spinner">
-                <div class="hourglass">
-                    <div class="sand"></div>
-                </div>
                 <div class="spinner"></div>
             </div>
             <a href="#" style="color: white; text-decoration: underline;">Open payment page</a>
@@ -214,26 +190,17 @@
 
             document.getElementById('emailDisplay').innerText = email;
 
-            // Animate transition
-            const step1 = document.getElementById('step1');
-            const step2 = document.getElementById('step2');
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
 
-            step1.classList.remove('active');
-            setTimeout(() => {
-                step2.classList.add('active');
-            }, 500); // Delay for fade effect
+            // Update step indicators
+            updateStepIndicator(1);
         }
 
         function confirmPayment() {
-            const step2 = document.getElementById('step2');
-            const step3 = document.getElementById('step3');
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
 
-            // Animate transition
-            step2.classList.remove('active');
-            setTimeout(() => {
-                step3.classList.add('active');
-            }, 500); // Delay for fade effect
-            
             // Simulate payment processing
             setTimeout(() => {
                 alert("Payment confirmed!");
@@ -241,14 +208,24 @@
         }
 
         function goBack() {
-            const step1 = document.getElementById('step1');
-            const step2 = document.getElementById('step2');
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
 
-            // Animate transition
-            step2.classList.remove('active');
-            setTimeout(() => {
-                step1.classList.add('active');
-            }, 500); // Delay for fade effect
+            // Update step indicators
+            updateStepIndicator(0);
+        }
+
+        function updateStepIndicator(step) {
+            const circles = document.querySelectorAll('.step-circle');
+            circles.forEach((circle, index) => {
+                circle.classList.remove('active', 'checked');
+                if (index < step + 1) {
+                    circle.classList.add('checked');
+                }
+                if (index === step) {
+                    circle.classList.add('active');
+                }
+            });
         }
     </script>
 </body>
