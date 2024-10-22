@@ -6,34 +6,34 @@
     <title>Payment Form</title>
     <style>
         body {
-            background-color: #1F2027; /* Общий фон */
+            background-color: #1F2027;
             color: white;
             font-family: 'Arial', sans-serif;
             text-align: center;
-            padding: 40px;
             margin: 0;
+            padding: 40px;
         }
 
         .container {
-            background-color: #2D2E34; /* Фон контейнера */
-            border: 2px solid #C2FF1C; /* Зеленая обводка */
-            border-radius: 20px; /* Округленные углы */
+            background-color: #2D2E34;
+            border: 2px solid #C2FF1C;
+            border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 0 20px rgba(194, 255, 28, 0.5); /* Тень */
-            max-width: 450px; /* Ширина контейнера */
-            margin: auto; /* Центрирование */
+            box-shadow: 0 0 20px rgba(194, 255, 28, 0.5);
+            max-width: 450px;
+            margin: auto;
         }
 
         h2 {
+            font-size: 0.9rem; /* Сделано меньше, чем "Top One Club" */
+            margin-bottom: 5px; /* Поднято на 20% */
             font-weight: bold;
-            font-size: 1.2rem; /* Уменьшение текста "Product Name" */
-            margin-bottom: 10px; /* Отступ снизу */
             text-transform: uppercase;
         }
 
         p {
             font-size: 1.2rem;
-            margin-bottom: 25px; /* Отступ снизу для поля описания продукта */
+            margin-bottom: 25px;
             font-weight: 500;
             text-transform: uppercase;
         }
@@ -43,116 +43,93 @@
             margin-bottom: 10px;
             display: block;
             text-align: left;
-            color: #C2FF1C; /* Зеленый цвет для выделения */
+            color: #C2FF1C;
             font-weight: bold;
         }
 
         .email-input {
-            width: 65%; /* Ширина поля ввода */
+            width: 65%;
             padding: 15px;
             border: none;
-            border-radius: 20px; /* Округленные углы */
-            background-color: #444; /* Темно-серый фон поля */
+            border-radius: 20px;
+            background-color: #444;
             color: white;
             font-weight: bold;
-            margin-bottom: 20px; /* Отступ снизу */
+            margin-bottom: 20px;
             font-size: 1rem;
-            transition: background-color 0.3s; /* Плавный переход цвета */
+            transition: background-color 0.3s;
         }
 
         .email-input:focus {
-            background-color: #555; /* Цвет при фокусе */
-            outline: none; /* Убираем обводку */
+            background-color: #555;
+            outline: none;
         }
 
         .subscription-option {
-            display: inline-block; /* Расположение рядом друг с другом на больших экранах */
-            width: 30%; /* Изменение размера кнопок */
+            display: inline-block;
+            width: 28%; /* Уменьшение ширины для размещения кнопок рядом друг с другом */
             padding: 15px;
-            border-radius: 20px; /* Округленные углы */
-            background-color: #444; /* Темно-серый фон */
+            border-radius: 20px;
+            background-color: #444;
             color: white;
-            margin: 10px; /* Отступы между опциями */
+            margin: 10px 2px;
             cursor: pointer;
             font-weight: bold;
-            transition: background-color 0.3s, transform 0.2s; /* Плавный переход цвета и эффект */
             font-size: 1rem;
-            text-align: center; /* Выравнивание по центру */
-            line-height: 1.5; /* Высота линии для центрирования текста */
+            text-align: center;
+            line-height: 1.5;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
         }
 
-        .subscription-option:hover,
         .subscription-option.active {
-            background-color: #C2FF1C; /* Цвет при выборе или наведении */
-            color: white; /* Текст белым при выборе */
-            transform: scale(1.05); /* Легкое увеличение при наведении */
+            background-color: #C2FF1C; /* Меняем цвет кнопки после нажатия */
+            color: white; /* Цвет текста кнопки после нажатия */
         }
 
         .subscription-option input {
-            display: none; /* Скрываем стандартные радио-кнопки */
+            display: none;
         }
 
         .subscribe-button {
-            padding: 15px 30px;
+            width: 65%;
+            padding: 15px;
             border: none;
-            border-radius: 20px; /* Округленные углы */
+            border-radius: 20px;
             background-color: #00BFA5; /* Новый цвет кнопки */
             font-weight: bold;
             cursor: pointer;
-            font-size: 1.2rem; /* Размер шрифта */
-            transition: background-color 0.3s, transform 0.2s; /* Плавный переход цвета */
+            font-size: 1.2rem;
             margin-top: 20px;
             color: white;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         .subscribe-button:hover {
-            background-color: #008F72; /* Цвет кнопки при наведении */
-            transform: scale(1.05); /* Легкое увеличение при наведении */
+            background-color: #008F72;
+            transform: scale(1.05);
         }
 
         .subscription-options {
-            margin-bottom: 20px; /* Отступ снизу */
-            display: flex;
-            justify-content: space-between; /* Размещение кнопок на одном уровне */
-            flex-wrap: wrap; /* Для перехода кнопок на новый ряд на маленьких экранах */
-        }
-
-        /* Убираем стандартное уведомление и создаем кастомное */
-        .email-input:invalid:focus {
-            border: none;
-            outline: none;
-        }
-        .email-input:invalid:focus + .error-message {
-            display: block; /* Показываем сообщение об ошибке */
-        }
-
-        .error-message {
-            color: #FF5656; /* Красный цвет для сообщения об ошибке */
-            font-size: 0.9rem;
-            margin-top: -15px;
             margin-bottom: 20px;
-            display: none; /* Прячем сообщение по умолчанию */
-            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
 
         @media (max-width: 768px) {
             .subscription-option {
-                width: 100%; /* На маленьких экранах кнопки занимают всю ширину */
+                width: 100%; /* Кнопки занимают всю ширину на мобильных устройствах */
             }
 
             .subscribe-button {
-                width: 100%; /* Кнопка "Proceed" занимает всю ширину */
-            }
-
-            .subscription-options {
-                margin-bottom: 10px;
+                width: 100%; /* Кнопка "Proceed" занимает всю ширину на мобильных устройствах */
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Product Name</h2>
+        <h2>Product Name</h2> <!-- Текст сделан меньше -->
         <p>Top One Club</p>
 
         <label for="email">Your Email*</label>
@@ -162,15 +139,15 @@
         <div class="subscription-options">
             <div class="subscription-option" onclick="selectOption('month', this)">
                 <input type="radio" id="month" name="subscription" value="25" required>
-                <label for="month">1 month - $25</label>
+                1 month - $25
             </div>
             <div class="subscription-option" onclick="selectOption('six-months', this)">
                 <input type="radio" id="six-months" name="subscription" value="80" required>
-                <label for="six-months">6 months - $80</label>
+                6 months - $80
             </div>
             <div class="subscription-option" onclick="selectOption('twelve-months', this)">
                 <input type="radio" id="twelve-months" name="subscription" value="120" required>
-                <label for="twelve-months">12 months - $120</label>
+                12 months - $120
             </div>
         </div>
 
@@ -194,7 +171,6 @@
                 return;
             }
 
-            // Здесь можно добавить код для отправки данных на сервер
             alert("Email: " + email + "\nSubscription Price: $" + subscription.value);
         }
     </script>
