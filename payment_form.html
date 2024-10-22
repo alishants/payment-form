@@ -38,8 +38,8 @@
         }
 
         .step-circle {
-            width: 30px; /* Size of the circle */
-            height: 30px; /* Size of the circle */
+            width: 21px; /* Size of the circle reduced by 30% */
+            height: 21px; /* Size of the circle reduced by 30% */
             border-radius: 50%;
             border: 2px solid gray;
             background-color: transparent;
@@ -60,8 +60,8 @@
             background-color: white;
             position: absolute;
             top: 15px; /* Position line above circles */
-            width: 60%; /* Width of the line connecting circles */
-            left: 15%; /* Center line between circles */
+            width: 50%; /* Width of the line connecting circles */
+            left: 25%; /* Center line between circles */
             z-index: -1;
         }
 
@@ -77,7 +77,7 @@
         }
 
         .email-input, .info-box {
-            margin-bottom: 40px; /* Increased distance */
+            margin-bottom: 20px; /* Increased distance */
             padding: 15px;
             border: none;
             border-radius: 20px;
@@ -145,7 +145,7 @@
             </div>
             <div class="step-line"></div>
             <div class="step">
-                <div class="step-circle"></div>
+                <div class="step-circle active checked"></div>
                 <div>Data</div>
             </div>
             <div class="step-line"></div>
@@ -158,15 +158,14 @@
         <div id="step1" class="step-content active">
             <h2>Top One Club / 1 Month</h2>
             <input type="email" class="email-input" placeholder="Your E-mail" id="email" required>
-            <p class="price">Price: $25</p>
-            <button class="button" onclick="proceedToStep2()">Proceed to Data Verification</button>
+            <button class="button" onclick="proceedToStep2()">Proceed</button>
         </div>
 
         <div id="step2" class="step-content">
             <h2>Verify Your Data</h2>
-            <p class="info-box">Product Name: Top One Club / 1 Month</p>
-            <p class="info-box">Your E-mail: <span id="emailDisplay"></span></p>
-            <p class="info-box">Price: $25</p>
+            <div class="info-box">Product Name: Top One Club / 1 Month</div>
+            <div class="info-box">Your E-mail: <span id="emailDisplay"></span></div>
+            <div class="info-box">Price: $25</div>
             <button class="button" onclick="confirmPayment()">Proceed to Payment</button>
             <button class="button" style="background-color: #444; color: white;" onclick="goBack()">Go Back</button>
         </div>
@@ -200,6 +199,9 @@
         function confirmPayment() {
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step3').classList.add('active');
+
+            // Update step indicator for Payment step
+            updateStepIndicator(2);
 
             // Simulate payment processing
             setTimeout(() => {
