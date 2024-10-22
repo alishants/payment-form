@@ -17,20 +17,38 @@
         .container {
             background-color: #2D2E34; /* Фон контейнера */
             border: 2px solid #C2FF1C; /* Зеленая обводка */
-            border-radius: 15px; /* Округленные углы */
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 194, 36, 0.5); /* Тень */
-            max-width: 400px; /* Ширина контейнера */
+            border-radius: 20px; /* Округленные углы */
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(194, 255, 28, 0.5); /* Тень */
+            max-width: 450px; /* Ширина контейнера */
             margin: auto; /* Центрирование */
         }
 
         h2 {
             font-weight: bold;
-            margin-bottom: 10px; /* Отступ снизу */
+            font-size: 1.8rem;
+            margin-bottom: 15px; /* Отступ снизу */
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 25px; /* Отступ снизу для поля описания продукта */
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
+            color: #C2FF1C; /* Зеленый цвет для выделения */
+            font-weight: bold;
         }
 
         .email-input {
-            width: 80%; /* Ширина поля ввода */
+            width: 65%; /* Ширина поля ввода */
             padding: 15px;
             border: none;
             border-radius: 20px; /* Округленные углы */
@@ -38,6 +56,7 @@
             color: white;
             font-weight: bold;
             margin-bottom: 20px; /* Отступ снизу */
+            font-size: 1rem;
             transition: background-color 0.3s; /* Плавный переход цвета */
         }
 
@@ -48,18 +67,20 @@
 
         .subscription-option {
             display: inline-block; /* Расположение рядом друг с другом */
-            padding: 15px;
+            padding: 15px 20px;
             border-radius: 20px; /* Округленные углы */
             background-color: #444; /* Темно-серый фон */
             color: white;
             margin: 10px; /* Отступы между опциями */
             cursor: pointer;
             font-weight: bold;
-            transition: background-color 0.3s; /* Плавный переход цвета */
+            transition: background-color 0.3s, transform 0.2s; /* Плавный переход цвета и эффект */
+            font-size: 1rem;
         }
 
         .subscription-option:hover {
             background-color: #C2FF1C; /* Цвет при наведении */
+            transform: scale(1.05); /* Легкое увеличение при наведении */
         }
 
         .subscription-option input {
@@ -77,16 +98,36 @@
             background-color: #C2FF1C; /* Цвет кнопки */
             font-weight: bold;
             cursor: pointer;
-            font-size: 16px; /* Размер шрифта */
-            transition: background-color 0.3s; /* Плавный переход цвета */
+            font-size: 1.2rem; /* Размер шрифта */
+            transition: background-color 0.3s, transform 0.2s; /* Плавный переход цвета */
+            margin-top: 20px;
         }
 
         .subscribe-button:hover {
             background-color: #B2FF00; /* Цвет кнопки при наведении */
+            transform: scale(1.05); /* Легкое увеличение при наведении */
         }
 
         .subscription-options {
             margin-bottom: 20px; /* Отступ снизу */
+        }
+
+        /* Убираем стандартное уведомление и создаем кастомное */
+        .email-input:invalid:focus {
+            border: none;
+            outline: none;
+        }
+        .email-input:invalid:focus + .error-message {
+            display: block; /* Показываем сообщение об ошибке */
+        }
+
+        .error-message {
+            color: #FF5656; /* Красный цвет для сообщения об ошибке */
+            font-size: 0.9rem;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            display: none; /* Прячем сообщение по умолчанию */
+            text-align: left;
         }
     </style>
 </head>
@@ -97,6 +138,7 @@
 
         <label for="email">Your Email*</label>
         <input type="email" id="email" class="email-input" placeholder="example@gmail.com" required>
+        <div class="error-message">Please enter a valid email address.</div>
 
         <div class="subscription-options">
             <div class="subscription-option">
