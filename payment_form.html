@@ -229,9 +229,7 @@
 
             // Update step indicators
             updateStepIndicator(0);
-
-            // Stop the payment animation if going back
-            stopPaymentAnimation();
+            // No need to stop the animation as per your requirements
         }
 
         function updateStepIndicator(step) {
@@ -252,7 +250,7 @@
             let currentIndex = 0;
 
             // Clear any existing animation
-            stopPaymentAnimation();
+            clearInterval(paymentAnimationInterval);
 
             paymentAnimationInterval = setInterval(() => {
                 // Hide all circles
@@ -264,12 +262,6 @@
                 // Move to the next circle
                 currentIndex = (currentIndex + 1) % circles.length; // Loop through circles
             }, 450); // Timing based on 133 BPM (450 ms per cycle)
-        }
-
-        function stopPaymentAnimation() {
-            clearInterval(paymentAnimationInterval);
-            const circles = document.querySelectorAll('.step-circle');
-            circles.forEach(circle => circle.classList.remove('active'));
         }
     </script>
 </body>
