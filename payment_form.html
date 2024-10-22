@@ -6,33 +6,51 @@
     <title>Payment Form</title>
     <style>
         body {
-            background-color: #333; /* Темно-серый фон */
+            background-color: #1F2027; /* Общий фон */
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            padding: 20px;
+            padding: 40px;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #2D2E34; /* Фон контейнера */
+            border: 2px solid #C2FF1C; /* Зеленая обводка */
+            border-radius: 15px; /* Округленные углы */
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 194, 36, 0.5); /* Тень */
+            max-width: 400px; /* Ширина контейнера */
+            margin: auto; /* Центрирование */
         }
 
         h2 {
             font-weight: bold;
+            margin-bottom: 10px; /* Отступ снизу */
         }
 
         .email-input {
-            width: 60%; /* Ширина поля ввода */
-            padding: 10px;
+            width: 80%; /* Ширина поля ввода */
+            padding: 15px;
             border: none;
-            border-radius: 5px; /* Округленные углы */
-            background-color: #555; /* Серый фон поля */
+            border-radius: 20px; /* Округленные углы */
+            background-color: #444; /* Темно-серый фон поля */
             color: white;
             font-weight: bold;
             margin-bottom: 20px; /* Отступ снизу */
+            transition: background-color 0.3s; /* Плавный переход цвета */
+        }
+
+        .email-input:focus {
+            background-color: #555; /* Цвет при фокусе */
+            outline: none; /* Убираем обводку */
         }
 
         .subscription-option {
             display: inline-block; /* Расположение рядом друг с другом */
             padding: 15px;
-            border-radius: 10px; /* Округленные углы */
-            background-color: #555; /* Серый фон */
+            border-radius: 20px; /* Округленные углы */
+            background-color: #444; /* Темно-серый фон */
             color: white;
             margin: 10px; /* Отступы между опциями */
             cursor: pointer;
@@ -53,38 +71,50 @@
         }
 
         .subscribe-button {
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 5px; /* Округленные углы */
+            border-radius: 20px; /* Округленные углы */
             background-color: #C2FF1C; /* Цвет кнопки */
             font-weight: bold;
             cursor: pointer;
+            font-size: 16px; /* Размер шрифта */
+            transition: background-color 0.3s; /* Плавный переход цвета */
+        }
+
+        .subscribe-button:hover {
+            background-color: #B2FF00; /* Цвет кнопки при наведении */
+        }
+
+        .subscription-options {
+            margin-bottom: 20px; /* Отступ снизу */
         }
     </style>
 </head>
 <body>
-    <h2>Product Name</h2>
-    <p>Top One Club</p>
+    <div class="container">
+        <h2>Product Name</h2>
+        <p>Top One Club</p>
 
-    <label for="email">Your Email*</label>
-    <input type="email" id="email" class="email-input" placeholder="example@gmail.com" required>
+        <label for="email">Your Email*</label>
+        <input type="email" id="email" class="email-input" placeholder="example@gmail.com" required>
 
-    <div class="subscription-options">
-        <div class="subscription-option">
-            <input type="radio" id="month" name="subscription" value="25" required>
-            <label for="month">1 month - $25</label>
+        <div class="subscription-options">
+            <div class="subscription-option">
+                <input type="radio" id="month" name="subscription" value="25" required>
+                <label for="month">1 month - $25</label>
+            </div>
+            <div class="subscription-option">
+                <input type="radio" id="six-months" name="subscription" value="80" required>
+                <label for="six-months">6 months - $80</label>
+            </div>
+            <div class="subscription-option">
+                <input type="radio" id="twelve-months" name="subscription" value="120" required>
+                <label for="twelve-months">12 months - $120</label>
+            </div>
         </div>
-        <div class="subscription-option">
-            <input type="radio" id="six-months" name="subscription" value="80" required>
-            <label for="six-months">6 months - $80</label>
-        </div>
-        <div class="subscription-option">
-            <input type="radio" id="twelve-months" name="subscription" value="120" required>
-            <label for="twelve-months">12 months - $120</label>
-        </div>
+
+        <button class="subscribe-button" onclick="submitForm()">Proceed</button>
     </div>
-
-    <button class="subscribe-button" onclick="submitForm()">Proceed</button>
 
     <script>
         function submitForm() {
