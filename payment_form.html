@@ -6,7 +6,7 @@
     <title>Payment Form</title>
     <style>
         body {
-            background-color: black;
+            background-color: #333; /* Темно-серый фон */
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -23,17 +23,15 @@
         input {
             padding: 10px; /* Увеличено пространство внутри поля ввода */
             margin: 15px 0; /* Увеличен отступ между полями */
-            width: 60%; /* Уменьшена ширина поля ввода до 60% */
+            width: 40%; /* Уменьшена ширина поля ввода до 40% */
             border: 1px solid white;
-            background-color: black;
+            background-color: transparent; /* Фон поля ввода прозрачный */
             color: white;
             font-size: 16px; /* Увеличен размер шрифта */
         }
         label {
-            background-color: #333; /* Темно-серый фон для лейбла */
             color: white; /* Белый текст для лейбла */
             padding: 5px; /* Отступы для лейбла */
-            border-radius: 5px; /* Скругленные углы для лейбла */
         }
         h1 {
             margin: 10px 0; /* Уменьшены отступы для заголовка */
@@ -48,7 +46,7 @@
     <h1>Product Name</h1>
     <h2>Top One Club / 1 month</h2>
     
-    <label for="email">Your Email* (required)</label>
+    <label for="email">Your Email*</label> <!-- Убрано "(required)" -->
     <input type="email" id="email" required placeholder="Enter your email">
     
     <h2>Price $25</h2> <!-- Вы можете изменить валюту, если это необходимо -->
