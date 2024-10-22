@@ -3,225 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top One Club - Payment Process</title>
+    <title>Payment Process</title>
     <style>
         body {
-            background-color: #141517; /* Very dark background */
-            color: white;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
             margin: 0;
-            padding: 40px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
-            background-color: #2D2E34; /* Container background color */
-            border: 2px solid #C9F73A;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            max-width: 380px; /* Уменьшенная ширина контейнера */
-            margin: auto;
-            animation: pulse 2s infinite; /* Пульсирующая анимация */
-            width: 100%; /* Одинаковая ширина для всех страниц */
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 70%; /* Уменьшение ширины окна на 30% */
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
-            }
-            100% {
-                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            }
+        .step {
+            display: none;
+        }
+
+        .active {
+            display: block;
         }
 
         .step-indicator {
             display: flex;
-            justify-content: center; /* Центровка кружков */
-            margin-bottom: 10px; /* Уменьшение расстояния */
-        }
-
-        .step {
-            position: relative;
-            text-align: center;
-            margin: 0 10px; /* Уменьшение расстояния между кружками */
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
         .step-circle {
-            width: 12px; /* Уменьшенный размер круга */
-            height: 12px; /* Уменьшенный размер круга */
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            border: 2px solid gray;
-            background-color: transparent;
+            background-color: #e0e0e0;
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 0.5rem; /* Уменьшенный размер иконки */
-            transition: background-color 0.3s;
-            margin: 0; /* Удаление маргина */
+            align-items: center;
+            position: relative;
         }
 
-        .step-circle.active, .step-circle.checked {
-            background-color: #C9F73A;
-            border-color: #C9F73A;
+        .step-circle.active {
+            background-color: #6200ea;
+            color: white;
         }
 
-        .step-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s;
-            text-align: center; /* Центровка текста */
+        .step-circle.checked {
+            background-color: #6200ea;
+            color: white;
         }
 
-        .step-content.active {
-            display: block;
-            opacity: 1;
+        .step-text {
+            text-align: center;
+            margin-top: 10px;
+            position: absolute;
+            bottom: -30px; /* Сдвиг текста вниз */
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .info-box {
-            margin: 10px 0; /* Уменьшение расстояния */
-            padding: 15px;
-            border: none;
-            border-radius: 20px;
-            background-color: #444;
-            color: white;
-            font-weight: bold;
-            width: calc(100% - 40px); /* Уменьшение ширины */
-            text-align: center; /* Центровка текста */
-            font-size: 0.8rem; /* Уменьшение размера текста */
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0f7fa;
+            border: 1px solid #b2ebf2;
+            border-radius: 5px;
         }
 
-        .email-input {
-            padding: 15px;
-            border: none;
-            border-radius: 20px;
-            background-color: #444; /* Цвет поля ввода */
-            color: white;
-            font-weight: bold;
-            width: 70%; /* Уменьшение на 30% */
-            margin: 10px 0; /* Пробел между меткой и кнопкой */
-            text-align: center; /* Центровка текста */
+        input[type="email"] {
+            width: 100%; /* Сделать ширину 100% */
+            padding: 10px;
+            margin: 5px 0 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         .button {
-            padding: 15px;
+            background-color: #6200ea;
+            color: white;
+            padding: 10px 15px;
             border: none;
-            border-radius: 20px;
-            background-color: #C9F73A; /* Цвет кнопки */
-            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
-            width: calc(100% - 20px); /* Увеличение ширины для одинаковости */
-            transition: background-color 0.3s, transform 0.2s;
-            margin-bottom: 10px; /* Уменьшение расстояния между кнопками */
-        }
-
-        .button:hover {
-            background-color: #B5E639;
-            transform: scale(1.05);
-        }
-
-        .animated-spinner {
-            margin-top: 20px;
-            display: none;
         }
 
         .spinner {
-            animation: spin 2s linear infinite;
-            width: 50px;
-            height: 50px;
-            border: 5px solid transparent;
-            border-top: 5px solid white;
-            border-radius: 50%;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .step-label {
-            font-weight: bold;
-            margin-top: 5px; /* Уменьшение расстояния */
-            text-align: center;
-            font-size: 0.7rem; /* Уменьшение размера текста */
-        }
-
-        .email-label {
-            color: #C9F73A; /* Зеленый цвет для метки */
-            font-size: 0.8rem; /* Уменьшенный размер */
-            text-align: left; /* Выравнивание влево */
-            margin-bottom: 5px; /* Пробел под меткой */
-        }
-
-        .error-message {
-            color: red; /* Цвет сообщения об ошибке */
-            margin: 10px 0; /* Отступ для пробелов */
-            font-size: 0.8rem; /* Уменьшенный размер */
-            display: none; /* Скрыто по умолчанию */
-        }
-
-        .payment-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Центровка содержимого */
-            margin-top: 20px; /* Отступ сверху */
-            animation: fadeIn 1s; /* Анимация появления для контейнера */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            display: none;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="step-indicator">
-            <div class="step">
-                <div class="step-circle active checked"></div>
-                <div class="step-label">Selection</div>
+        <div class="step active" id="step1">
+            <div class="step-indicator">
+                <div class="step-circle active"><span>1</span></div>
+                <div class="step-circle"><span>2</span></div>
+                <div class="step-circle"><span>3</span></div>
             </div>
-            <div class="step">
-                <div class="step-circle"></div>
-                <div class="step-label">Data</div>
-            </div>
-            <div class="step">
-                <div class="step-circle"></div>
-                <div class="step-label">Payment</div>
-            </div>
-        </div>
-
-        <div id="step1" class="step-content active">
-            <h2>Top One Club / 1 Month</h2>
-            <div>Price - $25</div> <!-- Убрали окно, оставили текст -->
-            <label class="email-label">Your Email</label>
-            <input type="email" class="email-input" placeholder="Enter your email" id="email" required>
-            <div class="error-message" id="error-message">Please enter a valid email address.</div> <!-- Уведомление об ошибке -->
-            <button class="button" onclick="proceedToStep2()">Proceed</button>
-        </div>
-
-        <div id="step2" class="step-content">
-            <h2>Verify Your Data</h2>
+            <div class="step-text">Selection</div>
             <div class="info-box">Price - $25</div>
-            <div class="info-box">Product Name:<br>Top One Club / 1 Month</div>
-            <div class="info-box">Your E-mail: <span id="emailDisplay"></span></div>
-            <button class="button" onclick="confirmPayment()">Proceed to Payment</button>
-            <button class="button" style="background-color: #444; color: white;" onclick="goBack()">Go Back</button>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <div id="error-message" style="color: red; display: none;">Please enter a valid email address.</div>
+            <button class="button" onclick="proceedToStep2()">Proceed to Step 2</button>
         </div>
 
-        <div id="step3" class="step-content">
-            <h2>Waiting for Payment Confirmation...</h2>
-            <div class="animated-spinner" id="spinner">
-                <div class="spinner"></div>
+        <div class="step" id="step2">
+            <div class="step-indicator">
+                <div class="step-circle checked"><span>1</span></div>
+                <div class="step-circle active"><span>2</span></div>
+                <div class="step-circle"><span>3</span></div>
             </div>
-            <div class="payment-container">
-                <div class="info-box">Price - $25</div>
-                <div class="info-box">Payment successful! Thank you for your order!</div>
+            <div class="step-text">Your E-mail:</div>
+            <div id="emailDisplay" class="info-box"></div>
+            <button class="button" onclick="goBack()">Back</button>
+            <button class="button" onclick="confirmPayment()">Confirm Payment</button>
+        </div>
+
+        <div class="step" id="step3">
+            <div class="step-indicator">
+                <div class="step-circle checked"><span>1</span></div>
+                <div class="step-circle checked"><span>2</span></div>
+                <div class="step-circle active"><span>3</span></div>
             </div>
+            <div class="step-text">Payment in progress...</div>
+            <div class="spinner">🔄</div>
+            <div class="info-box">Payment successful! Thank you for your order!</div>
         </div>
     </div>
 
