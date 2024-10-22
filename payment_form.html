@@ -13,32 +13,47 @@
             padding: 40px; /* Увеличено пространство вокруг */
         }
         button {
-            background-color: #00FF00; /* Ярко электрический зеленый */
+            background-color: #4CAF50; /* Ярко зеленый (светлый) */
             color: black;
             border: none;
             padding: 15px 30px; /* Увеличены размеры кнопки */
             cursor: pointer;
             font-size: 18px; /* Увеличен размер шрифта */
+            border-radius: 25px; /* Округление кнопки */
+            font-weight: bold; /* Жирный текст */
+            transition: background-color 0.3s; /* Плавный переход цвета при наведении */
+        }
+        button:hover {
+            background-color: #45a049; /* Темнее на наведение */
         }
         input {
             padding: 10px; /* Увеличено пространство внутри поля ввода */
             margin: 15px 0; /* Увеличен отступ между полями */
             width: 40%; /* Уменьшена ширина поля ввода до 40% */
             border: 1px solid white;
-            background-color: transparent; /* Фон поля ввода прозрачный */
+            border-radius: 15px; /* Округление поля ввода */
+            background-color: #555; /* Более светлый серый фон */
             color: white;
             font-size: 16px; /* Увеличен размер шрифта */
+            font-weight: bold; /* Жирный текст */
+        }
+        input::placeholder {
+            color: #ccc; /* Цвет плейсхолдера */
+            font-weight: normal; /* Нормальный вес текста плейсхолдера */
         }
         label {
             color: white; /* Белый текст для лейбла */
             padding: 5px; /* Отступы для лейбла */
+            font-weight: bold; /* Жирный текст */
         }
         h1 {
             margin: 10px 0; /* Уменьшены отступы для заголовка */
             font-size: 24px; /* Уменьшен размер шрифта */
+            font-weight: bold; /* Жирный текст */
         }
         h2 {
             margin: 20px 0; /* Увеличены отступы для заголовка */
+            font-weight: bold; /* Жирный текст */
         }
     </style>
 </head>
@@ -46,8 +61,8 @@
     <h1>Product Name</h1>
     <h2>Top One Club / 1 month</h2>
     
-    <label for="email">Your Email*</label> <!-- Убрано "(required)" -->
-    <input type="email" id="email" required placeholder="Enter your email">
+    <label for="email">Your Email*</label>
+    <input type="email" id="email" required placeholder="example@gmail.com"> <!-- Заполнитель для почты -->
     
     <h2>Price $25</h2> <!-- Вы можете изменить валюту, если это необходимо -->
     
