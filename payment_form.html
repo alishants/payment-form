@@ -25,7 +25,7 @@
         }
 
         h2 {
-            font-size: 0.9rem; /* Сделано меньше, чем "Top One Club" */
+            font-size: 0.8rem; /* Сделано меньше, чем "Top One Club" */
             margin-bottom: 5px; /* Поднято на 20% */
             font-weight: bold;
             text-transform: uppercase;
@@ -75,16 +75,16 @@
         .subscription-option {
             display: inline-block;
             width: 28%; /* Уменьшение ширины для размещения кнопок рядом друг с другом */
-            padding: 15px;
+            padding: 10px;
             border-radius: 20px;
             background-color: #444;
             color: white;
             margin: 10px 2px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem; /* Уменьшение размера текста */
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.2;
             transition: background-color 0.3s, color 0.3s, transform 0.2s;
         }
 
@@ -120,12 +120,12 @@
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
         }
 
         @media (max-width: 768px) {
             .subscription-option {
                 width: 100%; /* Кнопки занимают всю ширину на мобильных устройствах */
+                margin: 5px 0; /* Уменьшаем отступы для мобильных */
             }
 
             .subscribe-button {
