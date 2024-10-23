@@ -1,147 +1,227 @@
-<style>
-    body {
-        background-color: #141517;
-        color: white;
-        font-family: 'Arial', sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 20px;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top One Club - Payment Process</title>
+    <style>
+        body {
+            background-color: #141517;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
 
-    .container {
-        background-color: #080909;
-        border: 2px solid #C9F73A;
-        border-radius: 20px;
-        padding: 30px; /* Keeping padding */
-        box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-        max-width: 320px; /* Remains unchanged */
-        height: 340px;
-        margin: auto;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% {
+        .container {
+            background-color: #080909;
+            border: 2px solid #C9F73A;
+            border-radius: 20px;
+            padding: 30px; /* Keeping padding */
             box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            max-width: 320px; /* Remains unchanged */
+            height: 340px;
+            margin: auto;
+            animation: pulse 2s infinite;
         }
-        50% {
-            box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            }
         }
-        100% {
-            box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+
+        .step-indicator-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-    }
 
-    .step-indicator-box {
-        display: flex;
-        justify-content: center;
-        margin: 5px 0; /* Adjusted margin */
-    }
+        .step {
+            text-align: center;
+            margin: 0 5px;
+        }
 
-    .step {
-        text-align: center;
-        margin: 0 5px;
-    }
+        .step-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid gray;
+            background-color: transparent;
+            display: inline-block;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
 
-    .step-circle {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        border: 2px solid gray;
-        background-color: transparent;
-        display: inline-block;
-        transition: background-color 0.3s, border-color 0.3s;
-    }
+        .step-circle.active, .step-circle.checked {
+            background-color: #C9F73A;
+            border-color: #C9F73A;
+        }
 
-    .step-circle.active, .step-circle.checked {
-        background-color: #C9F73A;
-        border-color: #C9F73A;
-    }
+        .step-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            text-align: center;
+        }
 
-    .step-content {
-        display: none;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        text-align: center;
-    }
+        .step-content.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.5s forwards;
+        }
 
-    .step-content.active {
-        display: block;
-        opacity: 1;
-        animation: fadeIn 0.5s forwards;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+        .email-input {
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            background-color: #444;
+            color: white;
+            font-weight: bold;
+            width: 60%;
+            margin: 10px 0;
+            text-align: center;
+        }
 
-    .email-input {
-        padding: 12px;
-        border: none;
-        border-radius: 20px;
-        background-color: #444;
-        color: white;
-        font-weight: bold;
-        width: 60%;
-        margin: 5px 0; /* Adjusted margin */
-        text-align: center;
-    }
+        .button {
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: #C9F73A;
+            font-weight: bold;
+            cursor: pointer;
+            width: 70%;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-bottom: 10px;
+        }
 
-    .button {
-        padding: 10px;
-        border: none;
-        border-radius: 20px;
-        background-color: #C9F73A;
-        font-weight: bold;
-        cursor: pointer;
-        width: 70%;
-        transition: background-color 0.3s, transform 0.2s;
-        margin: 5px 0; /* Adjusted margin for proceed to payment */
-    }
+        .button:hover {
+            background-color: #B5E639;
+            transform: scale(1.05);
+        }
 
-    .button:hover {
-        background-color: #B5E639;
-        transform: scale(1.05);
-    }
+        .error-message {
+            color: red;
+            margin: 10px 0;
+            font-size: 0.8rem;
+            display: none;
+        }
 
-    .error-message {
-        color: red;
-        margin: 10px 0;
-        font-size: 0.8rem;
-        display: none;
-    }
+        .spinner-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-    .spinner-box {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
+        .animated-spinner {
+            border: 5px solid rgba(201, 247, 58, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #C9F73A;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
 
-    .animated-spinner {
-        border: 5px solid rgba(201, 247, 58, 0.3);
-        border-radius: 50%;
-        border-top: 5px solid #C9F73A;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-    }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+        /* New styles for the info boxes in step 2 */
+        .info-box {
+            background-color: #444;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="step-indicator-box">
+            <div class="step">
+                <div class="step-circle active" id="circle1"></div>
+            </div>
+            <div class="step">
+                <div class="step-circle" id="circle2"></div>
+            </div>
+            <div class="step">
+                <div class="step-circle" id="circle3"></div>
+            </div>
+        </div>
 
-    /* New styles for the info boxes in step 2 */
-    .info-box {
-        background-color: #444;
-        border-radius: 10px;
-        padding: 10px;
-        margin: 10px 0;
-    }
+        <div id="step1" class="step-content active">
+            <h2>Top One Club / 1 Month</h2>
+            <div>Price - $25</div>
+            <input type="email" class="email-input" placeholder="Enter your email" id="email" required>
+            <div class="error-message" id="error-message">Please enter a valid email address.</div>
+            <button class="button" onclick="proceedToStep2()">Proceed</button>
+        </div>
 
-    /* Added margin for Proceed to Checkout button */
-    #step3 .button {
-        margin-top: 20px;
-    }
-</style>
+        <div id="step2" class="step-content">
+            <h2>Verify Your Data</h2>
+            <div class="info-box">Price - $25</div>
+            <div class="info-box">Product Name:<br>Top One Club / 1 Month</div>
+            <div class="info-box">Your E-mail: <span id="emailDisplay"></span></div>
+            <button class="button" onclick="confirmPayment()">Proceed to Payment</button>
+            <button class="button" style="background-color: #444; color: white;" onclick="goBack()">Go Back</button>
+        </div>
+
+        <div id="step3" class="step-content">
+            <h2>Waiting for Payment Confirmation...</h2>
+            <div class="spinner-box">
+                <div class="animated-spinner"></div>
+            </div>
+            <a href="https://example.com/checkout" class="button">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <script>
+        function proceedToStep2() {
+            const email = document.getElementById('email').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            if (email === '' || !validateEmail(email)) {
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+                document.getElementById('emailDisplay').textContent = email;
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+                document.getElementById('circle1').classList.add('checked');
+                document.getElementById('circle2').classList.add('active'); // Activate the second circle
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email.toLowerCase());
+        }
+
+        function confirmPayment() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            document.getElementById('circle2').classList.add('checked'); // Check the second circle
+            document.getElementById('circle3').classList.add('active'); // Activate the third circle
+        }
+
+        function goBack() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('circle2').classList.remove('active'); // Deactivate the second circle
+            document.getElementById('circle2').classList.remove('checked'); // Remove check from second circle
+        }
+    </script>
+</body>
+</html>
