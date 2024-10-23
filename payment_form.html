@@ -206,56 +206,63 @@
         </div>
 
         <div id="step3" class="step-content">
-            <h2>Waiting for Payment Confirmation...</h2>
-            <div class="animated-spinner" id="spinner">
-                <div class="spinner"></div>
-            </div>
-            <div class="payment-container">
-                <div class="info-box">Price - $25</div>
-                <div class="info-box">Product Name:<br>Top One Club / 1 Month</div>
-                <a href="https://example.com/checkout" class="button">Proceed to Checkout</a>
-            </div>
-        </div>
+    <h2>Waiting for Payment Confirmation...</h2>
+    <div class="animated-spinner" id="spinner">
+        <div class="spinner"></div>
+    </div>
+    <div class="payment-container">
+        <a href="https://example.com/checkout" class="button">Proceed to Checkout</a>
+    </div>
+</div>
+
     </div>
 
     <script>
-        function proceedToStep2() {
-            const email = document.getElementById('email').value;
-            const errorMessage = document.getElementById('error-message');
-            const emailDisplay = document.getElementById('emailDisplay');
+    function proceedToStep2() {
+        const email = document.getElementById('email').value;
+        const errorMessage = document.getElementById('error-message');
+        const emailDisplay = document.getElementById('emailDisplay');
 
-            if (!validateEmail(email)) {
-                errorMessage.style.display = 'block';
-                return;
-            }
-
+        // Проверка введенного email
+        if (!validateEmail(email)) {
+            errorMessage.style.display = 'block';
+            return; // Завершение функции, если email недопустимый
+        } else {
             errorMessage.style.display = 'none';
-            emailDisplay.textContent = email;
-
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
-            document.getElementById('circle1').classList.add('checked');
-            document.getElementById('circle2').classList.add('active');
         }
 
-        function confirmPayment() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.add('active');
-            document.getElementById('circle2').classList.add('checked');
-            document.getElementById('circle3').classList.add('active');
-        }
+        // Переход ко второму шагу и активация второго кружка
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+        document.querySelectorAll('.step-circle')[1].classList.add('active'); // Активируем второй кружок
 
-        function goBack() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step1').classList.add('active');
-            document.getElementById('circle2').classList.remove('active');
-            document.getElementById('circle1').classList.add('active');
-        }
+        emailDisplay.textContent = email; // Отображение email на следующем шаге
+    }
 
-        function validateEmail(email) {
-            const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            return re.test(String(email).toLowerCase());
-        }
-    </script>
+    function confirmPayment() {
+        // Переход к третьему шагу и активация третьего кружка
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+        document.querySelectorAll('.step-circle')[2].classList.add('active'); // Активируем третий кружок
+        document.getElementById('spinner').style.display = 'block';
+
+        // Имитируем процесс оплаты
+        setTimeout(() => {
+            // После успешной оплаты показать ссылку "Proceed to Checkout"
+            document.getElementById('spinner').style.display = 'none';
+        }, 3000); // Имитация 3-секундного ожидания
+    }
+
+    function goBack() {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step1').classList.add('active');
+    }
+
+    function validateEmail(email) {
+        // Регулярное выражение для проверки email
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+</script>
 </body>
 </html>
