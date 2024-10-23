@@ -133,11 +133,6 @@
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         /* New styles for the info boxes in step 2 */
         .info-box {
             background-color: #444;
@@ -174,7 +169,7 @@
             <div class="info-box">Price - $25</div>
             <div class="info-box">Product Name:<br>Top One Club / 1 Month</div>
             <div class="info-box">Your E-mail: <span id="emailDisplay"></span></div>
-            <button class="button" onclick="confirmPayment()">Proceed to Payment</button>
+            <button class="button" onclick="confirmPayment()">Proceed</button>
             <button class="button" style="background-color: #444; color: white;" onclick="goBack()">Go Back</button>
         </div>
 
@@ -183,7 +178,7 @@
             <div class="spinner-box">
                 <div class="animated-spinner"></div>
             </div>
-            <a href="https://example.com/checkout" class="button">Proceed to Checkout</a>
+            <a href="https://example.com/checkout" class="button">Proceed</button>
         </div>
     </div>
 
@@ -220,6 +215,7 @@
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step1').classList.add('active');
             document.getElementById('circle2').classList.remove('active');
+            document.getElementById('circle1').classList.remove('checked');
         }
     </script>
 </body>
