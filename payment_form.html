@@ -5,147 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top One Club - Payment Process</title>
     <style>
-        body {
-            background-color: #141517;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
+    body {
+        background-color: #141517;
+        color: white;
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+    }
 
-        .container {
-            background-color: #080909;
-            border: 2px solid #C9F73A;
-            border-radius: 20px;
-            padding: 30px; /* Keeping padding */
+    .container {
+        background-color: #080909;
+        border: 2px solid #C9F73A;
+        border-radius: 20px;
+        padding: 30px; /* Keeping padding */
+        box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+        max-width: 320px; /* Remains unchanged */
+        height: 340px;
+        margin: auto;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
             box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            max-width: 320px; /* Remains unchanged */
-            height: 340px;
-            margin: auto;
-            animation: pulse 2s infinite;
         }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
-            }
-            100% {
-                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            }
+        50% {
+            box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
         }
-
-        .step-indicator-box {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
+        100% {
+            box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
         }
+    }
 
-        .step {
-            text-align: center;
-            margin: 0 5px;
-        }
+    .step-indicator-box {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        margin-top: 2px; /* Added margin-top */
+    }
 
-        .step-circle {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 2px solid gray;
-            background-color: transparent;
-            display: inline-block;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
+    .step {
+        text-align: center;
+        margin: 0 5px;
+    }
 
-        .step-circle.active, .step-circle.checked {
-            background-color: #C9F73A;
-            border-color: #C9F73A;
-        }
+    .step-circle {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid gray;
+        background-color: transparent;
+        display: inline-block;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
 
-        .step-content {
-            display: none;
+    .step-circle.active,
+    .step-circle.checked {
+        background-color: #C9F73A;
+        border-color: #C9F73A;
+    }
+
+    .step-content {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        text-align: center;
+    }
+
+    .step-content.active {
+        display: block;
+        opacity: 1;
+        animation: fadeIn 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            text-align: center;
         }
-
-        .step-content.active {
-            display: block;
+        to {
             opacity: 1;
-            animation: fadeIn 0.5s forwards;
         }
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .email-input {
+        padding: 12px;
+        border: none;
+        border-radius: 20px;
+        background-color: #444;
+        color: white;
+        font-weight: bold;
+        width: 60%;
+        margin: 10px 0;
+        text-align: center;
+        margin-top: 5px; /* Added margin-top */
+    }
 
-        .email-input {
-            padding: 12px;
-            border: none;
-            border-radius: 20px;
-            background-color: #444;
-            color: white;
-            font-weight: bold;
-            width: 60%;
-            margin: 10px 0;
-            text-align: center;
-        }
+    .button {
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: #C9F73A;
+        font-weight: bold;
+        cursor: pointer;
+        width: 70%;
+        transition: background-color 0.3s, transform 0.2s;
+        margin-bottom: 10px;
+        margin-top: 5px; /* Added margin-top */
+    }
 
-        .button {
-            padding: 10px;
-            border: none;
-            border-radius: 20px;
-            background-color: #C9F73A;
-            font-weight: bold;
-            cursor: pointer;
-            width: 70%;
-            transition: background-color 0.3s, transform 0.2s;
-            margin-bottom: 10px;
-        }
+    .button:hover {
+        background-color: #B5E639;
+        transform: scale(1.05);
+    }
 
-        .button:hover {
-            background-color: #B5E639;
-            transform: scale(1.05);
-        }
+    .error-message {
+        color: red;
+        margin: 10px 0;
+        font-size: 0.8rem;
+        display: none;
+    }
 
-        .error-message {
-            color: red;
-            margin: 10px 0;
-            font-size: 0.8rem;
-            display: none;
-        }
+    .spinner-box {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 
-        .spinner-box {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
+    .animated-spinner {
+        border: 5px solid rgba(201, 247, 58, 0.3);
+        border-radius: 50%;
+        border-top: 5px solid #C9F73A;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
 
-        .animated-spinner {
-            border: 5px solid rgba(201, 247, 58, 0.3);
-            border-radius: 50%;
-            border-top: 5px solid #C9F73A;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
         }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* New styles for the info boxes in step 2 */
-        .info-box {
-            background-color: #444;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-    </style>
+    /* New styles for the info boxes in step 2 */
+    .info-box {
+        background-color: #444;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+</style>
 </head>
 <body>
     <div class="container">
