@@ -6,7 +6,7 @@
     <title>Top One Club - Payment Process</title>
     <style>
         body {
-            background-color: #141517; /* Очень тёмный фон */
+            background-color: #141517; /* Very dark background */
             color: white;
             font-family: 'Arial', sans-serif;
             text-align: center;
@@ -15,61 +15,53 @@
         }
 
         .container {
-            width: 80%;            /* Размер перенесён из первого кода */
-            margin: 0 auto;       /* Размер перенесён из первого кода */
-            background-color: #2D2E34; /* Цвет фона контейнера */
+            background-color: #2D2E34; /* Container background color */
             border: 2px solid #C9F73A;
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            max-width: 450px;
+            max-width: 380px; /* Уменьшенная ширина контейнера */
+            margin: auto;
+            animation: pulse 2s infinite; /* Пульсирующая анимация */
+            width: 100%; /* Одинаковая ширина для всех страниц */
         }
 
-        .header {
-            height: 60px;         /* Размер перенесён из первого кода */
-            background-color: #333;
-            color: white;
-            font-size: 20px;      /* Оставлен стиль из второго кода */
-        }
-
-        .main {
-            padding: 20px;        /* Размер перенесён из первого кода */
-            margin-top: 20px;     /* Размер перенесён из первого кода */
-            font-size: 16px;      /* Оставлен стиль из второго кода */
-        }
-
-        .footer {
-            height: 40px;         /* Размер перенесён из первого кода */
-            background-color: #333;
-            color: white;
-            font-size: 14px;      /* Оставлен стиль из второго кода */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            }
         }
 
         .step-indicator {
             display: flex;
-            justify-content: space-between;
-            position: relative;
-            margin-bottom: 20px;
+            justify-content: center; /* Центровка кружков */
+            margin-bottom: 10px; /* Уменьшение расстояния */
         }
 
         .step {
             position: relative;
-            width: 30%;
             text-align: center;
+            margin: 0 10px; /* Уменьшение расстояния между кружками */
         }
 
         .step-circle {
-            width: 12.6px; /* Размер круга уменьшён на 40% */
-            height: 12.6px; /* Размер круга уменьшён на 40% */
+            width: 12px; /* Уменьшенный размер круга */
+            height: 12px; /* Уменьшенный размер круга */
             border-radius: 50%;
             border: 2px solid gray;
             background-color: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.5rem; /* Размер иконки уменьшён */
+            font-size: 0.5rem; /* Уменьшенный размер иконки */
             transition: background-color 0.3s;
-            margin: 0 10px; /* Отступ между кругами */
+            margin: 0; /* Удаление маргина */
         }
 
         .step-circle.active, .step-circle.checked {
@@ -81,7 +73,7 @@
             display: none;
             opacity: 0;
             transition: opacity 0.5s;
-            text-align: center; /* Центрирование текста */
+            text-align: center; /* Центровка текста */
         }
 
         .step-content.active {
@@ -90,17 +82,16 @@
         }
 
         .info-box {
-            margin: 20px 0; /* Увеличенное расстояние */
+            margin: 10px 0; /* Уменьшение расстояния */
             padding: 15px;
             border: none;
             border-radius: 20px;
             background-color: #444;
             color: white;
             font-weight: bold;
-            width: 100%;
-            text-align: center; /* Центрировать текст */
-            font-size: 1rem; /* Уменьшённый размер на 20% */
-            max-width: calc(100% - 20px); /* Сделать его уже */
+            width: calc(100% - 40px); /* Уменьшение ширины */
+            text-align: center; /* Центровка текста */
+            font-size: 0.8rem; /* Уменьшение размера текста */
         }
 
         .email-input {
@@ -110,9 +101,9 @@
             background-color: #444; /* Цвет поля ввода */
             color: white;
             font-weight: bold;
-            width: 100%;
-            margin: 10px 0; /* Пространство между меткой и кнопкой */
-            text-align: center; /* Центрировать текст */
+            width: 70%; /* Уменьшение на 30% */
+            margin: 10px 0; /* Пробел между меткой и кнопкой */
+            text-align: center; /* Центровка текста */
         }
 
         .button {
@@ -122,9 +113,9 @@
             background-color: #C9F73A; /* Цвет кнопки */
             font-weight: bold;
             cursor: pointer;
-            width: 100%;
+            width: calc(100% - 20px); /* Увеличение ширины для одинаковости */
             transition: background-color 0.3s, transform 0.2s;
-            margin-bottom: 20px; /* Пространство между кнопками */
+            margin-bottom: 10px; /* Уменьшение расстояния между кнопками */
         }
 
         .button:hover {
@@ -154,15 +145,36 @@
 
         .step-label {
             font-weight: bold;
-            margin-top: 10px; /* Пространство между кругом и меткой */
+            margin-top: 5px; /* Уменьшение расстояния */
             text-align: center;
+            font-size: 0.7rem; /* Уменьшение размера текста */
         }
 
         .email-label {
-            color: #C9F73A; /* Зелёный цвет для метки */
-            font-size: 0.8rem; /* Меньший размер */
+            color: #C9F73A; /* Зеленый цвет для метки */
+            font-size: 0.8rem; /* Уменьшенный размер */
             text-align: left; /* Выравнивание влево */
-            margin-bottom: 5px; /* Пространство под меткой */
+            margin-bottom: 5px; /* Пробел под меткой */
+        }
+
+        .error-message {
+            color: red; /* Цвет сообщения об ошибке */
+            margin: 10px 0; /* Отступ для пробелов */
+            font-size: 0.8rem; /* Уменьшенный размер */
+            display: none; /* Скрыто по умолчанию */
+        }
+
+        .payment-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Центровка содержимого */
+            margin-top: 20px; /* Отступ сверху */
+            animation: fadeIn 1s; /* Анимация появления для контейнера */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -185,9 +197,10 @@
 
         <div id="step1" class="step-content active">
             <h2>Top One Club / 1 Month</h2>
-            <div class="info-box">Price - $25</div>
+            <div>Price - $25</div> <!-- Убрали окно, оставили текст -->
             <label class="email-label">Your Email</label>
             <input type="email" class="email-input" placeholder="Enter your email" id="email" required>
+            <div class="error-message" id="error-message">Please enter a valid email address.</div> <!-- Уведомление об ошибке -->
             <button class="button" onclick="proceedToStep2()">Proceed</button>
         </div>
 
@@ -205,21 +218,28 @@
             <div class="animated-spinner" id="spinner">
                 <div class="spinner"></div>
             </div>
-            <a href="#" style="color: white; text-decoration: underline;">Open payment page</a>
+            <div class="payment-container">
+                <div class="info-box">Price - $25</div>
+                <div class="info-box">Payment successful! Thank you for your order!</div>
+            </div>
         </div>
     </div>
 
     <script>
-        let paymentAnimationInterval;
-
         function proceedToStep2() {
-            const email = document.getElementById('email').value;
+            const emailInput = document.getElementById('email');
+            const email = emailInput.value;
+            const errorMessage = document.getElementById('error-message');
+
             if (!validateEmail(email)) {
-                alert("Please enter a valid email address.");
+                errorMessage.style.display = 'block'; // Показать сообщение об ошибке
                 return;
+            } else {
+                errorMessage.style.display = 'none'; // Скрыть сообщение об ошибке
             }
 
-            document.getElementById('emailDisplay').innerText = email;
+            // Сохранение email для отображения на втором шаге
+            document.getElementById('emailDisplay').textContent = email;
 
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
@@ -233,17 +253,6 @@
             return re.test(String(email).toLowerCase());
         }
 
-        function confirmPayment() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.add('active');
-
-            // Update step indicator for Payment step
-            updateStepIndicator(2);
-
-            // Start the payment animation loop
-            startPaymentAnimation();
-        }
-
         function goBack() {
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step1').classList.add('active');
@@ -252,29 +261,26 @@
             updateStepIndicator(0);
         }
 
-        function updateStepIndicator(step) {
-            const circles = document.querySelectorAll('.step-circle');
-            circles.forEach((circle, index) => {
-                circle.classList.remove('active', 'checked');
-                if (index < step + 1) {
-                    circle.classList.add('checked');
-                }
-                if (index === step) {
-                    circle.classList.add('active');
-                }
-            });
+        function confirmPayment() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+
+            // Start the payment animation
+            paymentAnimationInterval = setInterval(() => {
+                document.querySelector('.spinner').style.display = 'block';
+            }, 1000);
+            updateStepIndicator(2);
         }
 
-        function startPaymentAnimation() {
-            const spinner = document.getElementById('spinner');
-            spinner.style.display = 'block'; // Show spinner
-
-            // Simulate payment confirmation after 5 seconds
-            paymentAnimationInterval = setTimeout(() => {
-                spinner.style.display = 'none';
-                alert("Payment confirmed!");
-                // Redirect or take any other action here
-            }, 5000);
+        function updateStepIndicator(step) {
+            const circles = document.querySelectorAll('.step-circle');
+            for (let i = 0; i < circles.length; i++) {
+                circles[i].classList.remove('active', 'checked');
+            }
+            for (let i = 0; i <= step; i++) {
+                circles[i].classList.add('checked');
+            }
+            circles[step].classList.add('active');
         }
     </script>
 </body>
