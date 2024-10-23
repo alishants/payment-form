@@ -64,7 +64,7 @@
             transition: background-color 0.3s;
         }
 
-        .step-circle.active {
+        .step-circle.active, .step-circle.checked {
             background-color: #C9F73A;
             border-color: #C9F73A;
         }
@@ -174,25 +174,25 @@
     <div class="container">
         <div class="step-indicator">
             <div class="step">
-                <div class="step-circle" id="step1-circle"></div>
+                <div class="step-circle" id="circle1"></div>
                 <div class="step-label">Selection</div>
             </div>
             <div class="step">
-                <div class="step-circle" id="step2-circle"></div>
+                <div class="step-circle" id="circle2"></div>
                 <div class="step-label">Data</div>
             </div>
             <div class="step">
-                <div class="step-circle" id="step3-circle"></div>
+                <div class="step-circle" id="circle3"></div>
                 <div class="step-label">Payment</div>
             </div>
         </div>
 
         <div id="step1" class="step-content active">
             <h2>Top One Club / 1 Month</h2>
-            <div>Price - $25</div> <!-- Убрали окно, оставили текст -->
+            <div>Price - $25</div>
             <label class="email-label">Your Email</label>
             <input type="email" class="email-input" placeholder="Enter your email" id="email" required>
-            <div class="error-message" id="error-message">Please enter a valid email address.</div> <!-- Уведомление об ошибке -->
+            <div class="error-message" id="error-message">Please enter a valid email address.</div>
             <button class="button" onclick="proceedToStep2()">Proceed</button>
         </div>
 
@@ -224,47 +224,36 @@
             const errorMessage = document.getElementById('error-message');
             const emailDisplay = document.getElementById('emailDisplay');
 
-            if (!email || !validateEmail(email)) {
+            if (!validateEmail(email)) {
                 errorMessage.style.display = 'block';
                 return;
             }
 
             errorMessage.style.display = 'none';
-            emailDisplay.innerHTML = email;
-            updateStep(2);
+            emailDisplay.textContent = email;
+
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('circle1').classList.add('checked');
+            document.getElementById('circle2').classList.add('active');
         }
 
         function confirmPayment() {
-            updateStep(3);
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            document.getElementById('circle2').classList.add('checked');
+            document.getElementById('circle3').classList.add('active');
         }
 
         function goBack() {
-            updateStep(1);
-        }
-
-        function updateStep(step) {
-            const stepCircles = document.querySelectorAll('.step-circle');
-            const stepContents = document.querySelectorAll('.step-content');
-
-            stepCircles.forEach((circle, index) => {
-                if (index + 1 === step) {
-                    circle.classList.add('active');
-                } else {
-                    circle.classList.remove('active');
-                }
-            });
-
-            stepContents.forEach((content, index) => {
-                if (index + 1 === step) {
-                    content.classList.add('active');
-                } else {
-                    content.classList.remove('active');
-                }
-            });
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('circle2').classList.remove('active');
+            document.getElementById('circle1').classList.add('active');
         }
 
         function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             return re.test(String(email).toLowerCase());
         }
     </script>
