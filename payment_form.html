@@ -6,7 +6,7 @@
     <title>Top One Club - Payment Process</title>
     <style>
         body {
-            background-color: #141517; /* Very dark background */
+            background-color: #141517;
             color: white;
             font-family: 'Arial', sans-serif;
             text-align: center;
@@ -15,15 +15,15 @@
         }
 
         .container {
-            background-color: #080909; /* Container background color */
+            background-color: #080909;
             border: 2px solid #C9F73A;
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px; /* Уменьшили паддинг на 20% */
             box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            max-width: 460px; /* Увеличили высоту и длину контейнера */
+            max-width: 320px; /* Уменьшена ширина на 30% */
+            height: calc(100vh - 30%); /* Увеличена высота на 30% */
             margin: auto;
-            animation: pulse 2s infinite; /* Пульсирующая анимация */
-            width: 100%; /* Одинаковая ширина для всех страниц */
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
@@ -38,30 +38,25 @@
             }
         }
 
-        .step-indicator {
+        .step-indicator-box {
             display: flex;
-            justify-content: flex-end; /* Смещение кружков на 30% вправо */
-            margin-bottom: 10px;
-            padding: 0 20px;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
         .step {
-            position: relative;
             text-align: center;
-            flex: 1;
+            margin: 0 5px;
         }
 
         .step-circle {
-            width: 12px;
-            height: 12px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             border: 2px solid gray;
             background-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.5rem;
-            transition: background-color 0.3s;
+            display: inline-block;
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .step-circle.active, .step-circle.checked {
@@ -72,14 +67,14 @@
         .step-content {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out; /* Плавный переход при изменении шагов */
-            text-align: center; /* Центровка текста */
+            transition: opacity 0.5s ease-in-out;
+            text-align: center;
         }
 
         .step-content.active {
             display: block;
             opacity: 1;
-            animation: fadeIn 0.5s forwards; /* Анимация появления */
+            animation: fadeIn 0.5s forwards;
         }
 
         @keyframes fadeIn {
@@ -87,39 +82,26 @@
             to { opacity: 1; }
         }
 
-        .info-box {
-            margin: 10px 0;
-            padding: 15px;
-            border: none;
-            border-radius: 20px;
-            background-color: #444;
-            color: white;
-            font-weight: bold;
-            width: calc(100% - 40px);
-            text-align: center;
-            font-size: 0.8rem;
-        }
-
         .email-input {
-            padding: 15px;
+            padding: 12px;
             border: none;
             border-radius: 20px;
             background-color: #444;
             color: white;
             font-weight: bold;
-            width: 56%; /* Уменьшена ширина на 20% */
+            width: 60%;
             margin: 10px 0;
             text-align: center;
         }
 
         .button {
-            padding: 12px; /* Уменьшена высота на 20% */
+            padding: 10px;
             border: none;
             border-radius: 20px;
             background-color: #C9F73A;
             font-weight: bold;
             cursor: pointer;
-            width: 80%; /* Сужены кнопки на 20% */
+            width: 70%;
             transition: background-color 0.3s, transform 0.2s;
             margin-bottom: 10px;
         }
@@ -129,12 +111,23 @@
             transform: scale(1.05);
         }
 
-        .animated-spinner {
-            margin-top: 20px;
+        .error-message {
+            color: red;
+            margin: 10px 0;
+            font-size: 0.8rem;
             display: none;
+        }
+
+        .spinner-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .animated-spinner {
             border: 5px solid rgba(201, 247, 58, 0.3);
             border-radius: 50%;
-            border-top: 5px solid #C9F73A; /* Зеленая полоска */
+            border-top: 5px solid #C9F73A;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
@@ -144,25 +137,11 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        .error-message {
-            color: red;
-            margin: 10px 0;
-            font-size: 0.8rem;
-            display: none;
-        }
-
-        .payment-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="step-indicator">
+        <div class="step-indicator-box">
             <div class="step">
                 <div class="step-circle" id="circle1"></div>
             </div>
@@ -177,7 +156,6 @@
         <div id="step1" class="step-content active">
             <h2>Top One Club / 1 Month</h2>
             <div>Price - $25</div>
-            <label class="email-label">Your Email</label>
             <input type="email" class="email-input" placeholder="Enter your email" id="email" required>
             <div class="error-message" id="error-message">Please enter a valid email address.</div>
             <button class="button" onclick="proceedToStep2()">Proceed</button>
@@ -194,10 +172,10 @@
 
         <div id="step3" class="step-content">
             <h2>Waiting for Payment Confirmation...</h2>
-            <div class="animated-spinner" id="spinner"></div>
-            <div class="payment-container">
-                <a href="https://example.com/checkout" class="button">Proceed to Checkout</a>
+            <div class="spinner-box">
+                <div class="animated-spinner"></div>
             </div>
+            <a href="https://example.com/checkout" class="button">Proceed to Checkout</a>
         </div>
     </div>
 
@@ -228,9 +206,6 @@
             document.getElementById('step3').classList.add('active');
             document.getElementById('circle2').classList.add('checked');
             document.getElementById('circle3').classList.add('active');
-            setTimeout(() => {
-                document.getElementById('spinner').style.display = 'block';
-            }, 1000);
         }
 
         function goBack() {
