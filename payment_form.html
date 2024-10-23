@@ -40,14 +40,15 @@
 
         .step-indicator {
             display: flex;
-            justify-content: center; /* Центровка кружков */
+            justify-content: space-between; /* Space out the circles evenly */
             margin-bottom: 10px; /* Уменьшение расстояния */
+            padding: 0 20px; /* Padding to keep circles inside the container */
         }
 
         .step {
             position: relative;
             text-align: center;
-            margin: 0 10px; /* Уменьшение расстояния между кружками */
+            flex: 1; /* Ensures even spacing */
         }
 
         .step-circle {
@@ -61,7 +62,6 @@
             justify-content: center;
             font-size: 0.5rem; /* Уменьшенный размер иконки */
             transition: background-color 0.3s;
-            margin: 0; /* Удаление маргина */
         }
 
         .step-circle.active, .step-circle.checked {
@@ -234,53 +234,32 @@
             if (!validateEmail(email)) {
                 errorMessage.style.display = 'block'; // Показать сообщение об ошибке
                 return;
-            } else {
-                errorMessage.style.display = 'none'; // Скрыть сообщение об ошибке
             }
 
-            // Сохранение email для отображения на втором шаге
-            document.getElementById('emailDisplay').textContent = email;
-
+            errorMessage.style.display = 'none'; // Скрыть сообщение об ошибке
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
-
-            // Update step indicators
-            updateStepIndicator(1);
-        }
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(String(email).toLowerCase());
-        }
-
-        function goBack() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step1').classList.add('active');
-
-            // Update step indicators
-            updateStepIndicator(0);
+            document.getElementById('emailDisplay').innerText = email;
         }
 
         function confirmPayment() {
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step3').classList.add('active');
-
-            // Start the payment animation
-            paymentAnimationInterval = setInterval(() => {
-                document.querySelector('.spinner').style.display = 'block';
-            }, 1000);
-            updateStepIndicator(2);
+            document.getElementById('spinner').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('spinner').style.display = 'none';
+                document.querySelector('.info-box:nth-of-type(2)').innerText = "Payment successful! Thank you for your order!";
+            }, 3000); // Simulated payment confirmation delay
         }
 
-        function updateStepIndicator(step) {
-            const circles = document.querySelectorAll('.step-circle');
-            for (let i = 0; i < circles.length; i++) {
-                circles[i].classList.remove('active', 'checked');
-            }
-            for (let i = 0; i <= step; i++) {
-                circles[i].classList.add('checked');
-            }
-            circles[step].classList.add('active');
+        function goBack() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
+            return re.test(String(email).toLowerCase());
         }
     </script>
 </body>
