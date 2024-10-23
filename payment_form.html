@@ -64,7 +64,7 @@
             transition: background-color 0.3s;
         }
 
-        .step-circle.active, .step-circle.checked {
+        .step-circle.active {
             background-color: #C9F73A;
             border-color: #C9F73A;
         }
@@ -140,15 +140,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid transparent;
-            border-top: 5px solid white;
-            border-radius: 50%;
-            margin: 0 auto;
-        }
-
         .step-label {
             font-weight: bold;
             margin-top: 5px; /* Уменьшение расстояния */
@@ -183,15 +174,15 @@
     <div class="container">
         <div class="step-indicator">
             <div class="step">
-                <div class="step-circle active checked"></div>
+                <div class="step-circle" id="step1-circle"></div>
                 <div class="step-label">Selection</div>
             </div>
             <div class="step">
-                <div class="step-circle"></div>
+                <div class="step-circle" id="step2-circle"></div>
                 <div class="step-label">Data</div>
             </div>
             <div class="step">
-                <div class="step-circle"></div>
+                <div class="step-circle" id="step3-circle"></div>
                 <div class="step-label">Payment</div>
             </div>
         </div>
@@ -233,42 +224,48 @@
             const errorMessage = document.getElementById('error-message');
             const emailDisplay = document.getElementById('emailDisplay');
 
-            // Проверка введенного email
-            if (!validateEmail(email)) {
+            if (!email || !validateEmail(email)) {
                 errorMessage.style.display = 'block';
-                return; // Завершение функции, если email недопустимый
-            } else {
-                errorMessage.style.display = 'none';
+                return;
             }
 
-            // Отображаем следующий шаг
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
-            emailDisplay.textContent = email; // Отображение email на следующем шаге
+            errorMessage.style.display = 'none';
+            emailDisplay.innerHTML = email;
+            updateStep(2);
         }
 
         function confirmPayment() {
-            // Здесь вы должны добавить код для инициации оплаты
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.add('active');
-            document.getElementById('spinner').style.display = 'block';
-
-            // Имитируем процесс оплаты
-            setTimeout(() => {
-                // После успешной оплаты показать ссылку "Proceed to Checkout"
-                document.getElementById('spinner').style.display = 'none';
-            }, 3000); // Имитация 3-секундного ожидания
+            updateStep(3);
         }
 
         function goBack() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step1').classList.add('active');
+            updateStep(1);
+        }
+
+        function updateStep(step) {
+            const stepCircles = document.querySelectorAll('.step-circle');
+            const stepContents = document.querySelectorAll('.step-content');
+
+            stepCircles.forEach((circle, index) => {
+                if (index + 1 === step) {
+                    circle.classList.add('active');
+                } else {
+                    circle.classList.remove('active');
+                }
+            });
+
+            stepContents.forEach((content, index) => {
+                if (index + 1 === step) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
         }
 
         function validateEmail(email) {
-            // Регулярное выражение для проверки email
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
+            return re.test(String(email).toLowerCase());
         }
     </script>
 </body>
