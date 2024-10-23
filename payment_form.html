@@ -18,9 +18,9 @@
             background-color: #080909;
             border: 2px solid #C9F73A;
             border-radius: 20px;
-            padding: 30px; /* Keeping padding */
+            padding: 30px;
             box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-            max-width: 320px; /* Remains unchanged */
+            max-width: 320px;
             height: 340px;
             margin: auto;
             animation: pulse 2s infinite;
@@ -133,7 +133,11 @@
             animation: spin 1s linear infinite;
         }
 
-        /* New styles for the info boxes in step 2 */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .info-box {
             background-color: #444;
             border-radius: 10px;
@@ -178,7 +182,7 @@
             <div class="spinner-box">
                 <div class="animated-spinner"></div>
             </div>
-            <a href="https://example.com/checkout" class="button">Proceed</button>
+            <a href="https://example.com/checkout" class="button">Proceed</a>
         </div>
     </div>
 
@@ -215,7 +219,6 @@
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step1').classList.add('active');
             document.getElementById('circle2').classList.remove('active');
-            document.getElementById('circle1').classList.remove('checked');
         }
     </script>
 </body>
