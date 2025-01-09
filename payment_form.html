@@ -5,161 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top One Club - Payment Process</title>
     <style>
-    body {
-        background-color: #141517;
-        color: white;
-        font-family: 'Arial', sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 20px;
-    }
+        body {
+            background-color: #141517;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
 
-    .container {
-        background-color: #080909;
-        border: 2px solid #C9F73A;
-        border-radius: 20px;
-        padding: 30px; /* Keeping padding */
-        box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
-        max-width: 380px; /* Remains unchanged */
-        height: 480px;
-        margin: auto;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% {
+        .container {
+            background-color: #080909;
+            border: 2px solid #C9F73A;
+            border-radius: 20px;
+            padding: 30px; 
             box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            max-width: 380px;
+            height: 480px;
+            margin: auto;
+            animation: pulse 2s infinite;
         }
-        50% {
-            box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(201, 247, 58, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+            }
         }
-        100% {
-            box-shadow: 0 0 20px rgba(201, 247, 58, 0.5);
+
+        .step-indicator-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            margin-top: 33px; 
         }
-    }
 
-    .step-indicator-box {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 40px;
-        margin-top: 33px; /* Added margin-top */
-    }
+        .step {
+            text-align: center;
+            margin: 0 5px;
+        }
 
-    .step {
-        text-align: center;
-        margin: 0 5px;
-    }
+        .step-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid gray;
+            background-color: transparent;
+            display: inline-block;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
 
-    .step-circle {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        border: 2px solid gray;
-        background-color: transparent;
-        display: inline-block;
-        transition: background-color 0.3s, border-color 0.3s;
-    }
+        .step-circle.active,
+        .step-circle.checked {
+            background-color: #C9F73A;
+            border-color: #C9F73A;
+        }
 
-    .step-circle.active,
-    .step-circle.checked {
-        background-color: #C9F73A;
-        border-color: #C9F73A;
-    }
-
-    .step-content {
-        display: none;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        text-align: center;
-    }
-
-    .step-content.active {
-        display: block;
-        opacity: 1;
-        animation: fadeIn 0.5s forwards;
-    }
-
-    @keyframes fadeIn {
-        from {
+        .step-content {
+            display: none;
             opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            text-align: center;
         }
-        to {
+
+        .step-content.active {
+            display: block;
             opacity: 1;
+            animation: fadeIn 0.5s forwards;
         }
-    }
 
-    .email-input {
-        padding: 12px;
-        border: none;
-        border-radius: 25px;
-        background-color: #444;
-        color: white;
-        font-weight: bold;
-        width: 60%;
-        margin: 10px 0;
-        text-align: center;
-        margin-top: 30px; /* Added margin-top */
-        margin-bottom: 30px;
-    }
-
-    .button {
-        padding: 10px;
-        border: none;
-        border-radius: 30px;
-        background-color: #C9F73A;
-        font-weight: bold;
-        cursor: pointer;
-        width: 70%;
-        transition: background-color 0.3s, transform 0.2s;
-        margin-bottom: 10px;
-        margin-top: 15px; /* Added margin-top */
-    }
-
-    .button:hover {
-        background-color: #B5E639;
-        transform: scale(1.05);
-    }
-
-    .error-message {
-        color: red;
-        margin: 10px 0;
-        font-size: 0.8rem;
-        display: none;
-    }
-
-    .spinner-box {
-        display: flex;
-        justify-content: center;
-        margin-top: 55px;
-        margin-bottom: 55px;
-    }
-
-    .animated-spinner {
-        border: 5px solid rgba(201, 247, 58, 0.3);
-        border-radius: 50%;
-        border-top: 5px solid #C9F73A;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
 
-    /* New styles for the info boxes in step 2 */
-    .info-box {
-        background-color: #444;
-        border-radius: 8px;
-        padding: 10px;
-        margin: 15px 0;
-    }
-</style>
+        .email-input {
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background-color: #444;
+            color: white;
+            font-weight: bold;
+            width: 60%;
+            margin: 10px 0;
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            padding: 10px;
+            border: none;
+            border-radius: 30px;
+            background-color: #C9F73A;
+            font-weight: bold;
+            cursor: pointer;
+            width: 70%;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+
+        .button:hover {
+            background-color: #B5E639;
+            transform: scale(1.05);
+        }
+
+        .error-message {
+            color: red;
+            margin: 10px 0;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .spinner-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 55px;
+            margin-bottom: 55px;
+        }
+
+        .animated-spinner {
+            border: 5px solid rgba(201, 247, 58, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #C9F73A;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .info-box {
+            background-color: #444;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 15px 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -197,15 +196,17 @@
             <div class="spinner-box">
                 <div class="animated-spinner"></div>
             </div>
-            <a href="https://example.com/checkout" class="button" style="margin-top: 50px !important;">Proceed to Checkout</a>
+            <a id="paymentLink" href="#" class="button" style="margin-top: 50px !important;">Proceed to Checkout</a>
         </div>
     </div>
 
     <script>
+        const API_KEY = 'b5iqMWWLLADxR52RdGBtAvyKiAGo2XclsYDivD2yqwTIDXnGTwfHBFiiAgUAPkQQ';
+
         function proceedToStep2() {
             const email = document.getElementById('email').value;
             const errorMessage = document.getElementById('error-message');
-            
+
             if (email === '' || !validateEmail(email)) {
                 errorMessage.style.display = 'block';
             } else {
@@ -214,7 +215,7 @@
                 document.getElementById('step1').classList.remove('active');
                 document.getElementById('step2').classList.add('active');
                 document.getElementById('circle1').classList.add('checked');
-                document.getElementById('circle2').classList.add('active'); // Activate the second circle
+                document.getElementById('circle2').classList.add('active');
             }
         }
 
@@ -223,18 +224,55 @@
             return re.test(email.toLowerCase());
         }
 
-        function confirmPayment() {
+        async function fetchPaymentLink() {
+            const email = document.getElementById('email').value;
+
+            const payload = {
+                api_key: API_KEY,
+                product_name: "Top One Club / 1 Month",
+                price: 25,
+                email: email,
+                description: "Top One Club subscription",
+            };
+
+            const response = await fetch("https://gate.lava.top/api/v1/payment/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.payment_url) {
+                return data.payment_url;
+            } else {
+                throw new Error(data.error || "Failed to get payment link");
+            }
+        }
+
+        async function confirmPayment() {
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step3').classList.add('active');
-            document.getElementById('circle2').classList.add('checked'); // Check the second circle
-            document.getElementById('circle3').classList.add('active'); // Activate the third circle
+            document.getElementById('circle2').classList.add('checked');
+            document.getElementById('circle3').classList.add('active');
+
+            try {
+                const paymentLink = await fetchPaymentLink();
+                document.getElementById('paymentLink').href = paymentLink;
+                window.open(paymentLink, '_blank');
+            } catch (err) {
+                alert("Error: " + err.message);
+                document.getElementById('step3').innerHTML = "<h2>Payment failed. Please try again.</h2>";
+            }
         }
 
         function goBack() {
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step1').classList.add('active');
-            document.getElementById('circle2').classList.remove('active'); // Deactivate the second circle
-            document.getElementById('circle2').classList.remove('checked'); // Remove check from second circle
+            document.getElementById('circle2').classList.remove('active');
+            document.getElementById('circle2').classList.remove('checked');
         }
     </script>
 </body>
