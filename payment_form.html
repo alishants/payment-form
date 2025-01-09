@@ -208,13 +208,19 @@
             };
 
             try {
-                const response = await fetch("https://gate.lava.top/api/v1/payment/create", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(payload),
-                });
+                const response = await fetch("https://your-cloudflare-worker-url", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        action: "create_payment",
+        email: email,
+        product_name: "Top One Club / 1 Month",
+        price: 25,
+        description: "Top One Club subscription",
+    }),
+});
 
                 const data = await response.json();
 
